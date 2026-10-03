@@ -7,6 +7,29 @@
 <title>My Cute Shop ♡</title>
 
 <style>
+.saved-popup {
+  position: fixed;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%) translateY(20px);
+  background: #777077;
+  color: white;
+  padding: 16px 30px;
+  border-radius: 22px;
+  font-size: 18px;
+  font-weight: 700;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: .25s ease;
+  z-index: 9999;
+}
+
+.saved-popup.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Prompt:wght@400;500;600;700;800&display=swap');
 
 :root{
@@ -2861,6 +2884,10 @@ document.addEventListener(
 renderShop();
 
 </script>
+
+<div id="savedPopup" class="saved-popup">
+  บันทึกข้อมูลแล้ว ♡
+</div>
 
 </body>
 </html>
