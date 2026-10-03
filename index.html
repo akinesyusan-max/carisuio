@@ -1,0 +1,3082 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ร้านของเรา ♡</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --main:#f49bc0;
+  --main-dark:#db82a8;
+  --light:#fff0f6;
+  --bg:#fff7fb;
+  --text:#665761;
+  --white:#ffffff;
+  --border:#f3d7e3;
+  --shadow:0 8px 25px rgba(219,130,168,.15);
+}
+
+body{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Thai",
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  background:var(--white);
+  padding:18px 15px 15px;
+  box-shadow:0 4px 20px rgba(219,130,168,.12);
+  position:relative;
+  z-index:10;
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.shop-name{
+  color:var(--main-dark);
+  font-size:24px;
+  font-weight:800;
+  text-align:center;
+}
+
+.settings-btn{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:50%;
+  background:var(--light);
+  color:var(--main-dark);
+  font-size:20px;
+  box-shadow:var(--shadow);
+}
+
+.shop-description{
+  text-align:center;
+  font-size:13px;
+  margin-top:5px;
+  opacity:.75;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  width:min(700px, calc(100% - 24px));
+  margin:20px auto 50px;
+}
+
+/* =========================
+   BANNER
+========================= */
+
+.banner{
+  width:100%;
+  aspect-ratio:16/7;
+  background:var(--light);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.banner-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--main-dark);
+  font-size:15px;
+}
+
+/* =========================
+   VOTE
+========================= */
+
+.vote-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.vote-title{
+  text-align:center;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.vote-buttons{
+  display:flex;
+  gap:12px;
+}
+
+.vote-btn{
+  flex:1;
+  border:none;
+  border-radius:15px;
+  padding:13px;
+  font-weight:700;
+  font-size:16px;
+  transition:.15s;
+}
+
+.vote-btn:active{
+  transform:scale(.96);
+}
+
+.plus-btn{
+  background:#ffe6f0;
+  color:#d96f9c;
+}
+
+.minus-btn{
+  background:#f5edf1;
+  color:#8e7480;
+}
+
+.vote-number{
+  display:block;
+  font-size:12px;
+  margin-top:3px;
+  opacity:.7;
+}
+
+/* =========================
+   RATING
+========================= */
+
+.rating-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+  text-align:center;
+}
+
+.average-number{
+  font-size:34px;
+  font-weight:900;
+  color:var(--main-dark);
+}
+
+.average-stars{
+  font-size:22px;
+  letter-spacing:2px;
+  margin:4px 0;
+}
+
+.review-count{
+  font-size:13px;
+  opacity:.7;
+}
+
+/* =========================
+   REVIEW FORM
+========================= */
+
+.review-form{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:800;
+  color:var(--main-dark);
+  margin-bottom:14px;
+}
+
+.input{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:12px;
+  outline:none;
+  background:#fffafd;
+  color:var(--text);
+  margin-bottom:10px;
+}
+
+.input:focus{
+  border-color:var(--main);
+}
+
+textarea.input{
+  min-height:100px;
+  resize:vertical;
+}
+
+.star-select{
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  margin:8px 0 14px;
+}
+
+.star{
+  border:none;
+  background:transparent;
+  font-size:31px;
+  color:#ddd;
+  padding:2px;
+}
+
+.star.active{
+  color:#ffc857;
+}
+
+.submit-btn{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:13px;
+  background:var(--main);
+  color:white;
+  font-weight:800;
+}
+
+/* =========================
+   REVIEWS
+========================= */
+
+.reviews{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.review-item{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+
+.review-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.reviewer-name{
+  font-weight:800;
+}
+
+.review-stars{
+  color:#ffc857;
+  letter-spacing:1px;
+}
+
+.review-text{
+  margin-top:9px;
+  line-height:1.6;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.empty-review{
+  text-align:center;
+  padding:25px;
+  color:#a58d99;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(70,45,58,.38);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  z-index:100;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(520px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 20px 60px rgba(60,30,45,.2);
+  position:relative;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:900;
+  color:var(--main-dark);
+  margin-bottom:15px;
+}
+
+.close-btn{
+  position:absolute;
+  right:12px;
+  top:10px;
+  width:36px;
+  height:36px;
+  border:none;
+  border-radius:50%;
+  background:var(--light);
+  color:var(--main-dark);
+  font-size:20px;
+}
+
+/* =========================
+   MINUS POPUP
+========================= */
+
+.minus-message{
+  line-height:1.7;
+  margin-bottom:15px;
+}
+
+.link-btn{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  background:var(--main);
+  color:white;
+  border-radius:14px;
+  padding:13px;
+  font-weight:800;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-tabs{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  margin-bottom:16px;
+}
+
+.admin-tab{
+  flex:0 0 auto;
+  border:none;
+  padding:9px 12px;
+  border-radius:12px;
+  background:#f8edf2;
+  color:var(--text);
+  font-size:13px;
+}
+
+.admin-tab.active{
+  background:var(--main);
+  color:white;
+}
+
+.admin-section{
+  display:none;
+}
+
+.admin-section.active{
+  display:block;
+}
+
+.field-label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin:12px 0 6px;
+}
+
+.color-row{
+  display:grid;
+  grid-template-columns:1fr 60px;
+  gap:8px;
+  align-items:center;
+}
+
+.color-input{
+  width:60px;
+  height:42px;
+  border:none;
+  padding:0;
+  background:none;
+}
+
+.admin-save{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:13px;
+  background:var(--main);
+  color:white;
+  font-weight:800;
+  margin-top:15px;
+}
+
+.danger-btn{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:11px;
+  background:#f8e4ea;
+  color:#b85d7c;
+  font-weight:700;
+  margin-top:8px;
+}
+
+.admin-review{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:12px;
+  margin-bottom:10px;
+}
+
+.admin-review-actions{
+  display:flex;
+  gap:7px;
+  margin-top:9px;
+}
+
+.small-btn{
+  border:none;
+  border-radius:10px;
+  padding:8px 11px;
+  background:#f7edf1;
+  color:var(--text);
+}
+
+.delete-btn{
+  background:#ffe4eb;
+  color:#c05e7e;
+}
+
+.preview-image{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-top:10px;
+  display:none;
+}
+
+.file-input{
+  width:100%;
+  padding:10px;
+  border:1px dashed var(--main);
+  border-radius:13px;
+  background:#fff8fb;
+}
+
+.music-status{
+  font-size:12px;
+  opacity:.7;
+  margin-top:6px;
+}
+
+.music-control{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  background:#fff5f9;
+  border-radius:13px;
+}
+
+.music-toggle{
+  border:none;
+  border-radius:12px;
+  padding:9px 13px;
+  background:var(--main);
+  color:white;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,20px);
+  background:#665761;
+  color:white;
+  padding:11px 17px;
+  border-radius:14px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:300;
+  font-size:14px;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* =========================
+   SAVED POPUP
+========================= */
+
+.saved-popup{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) scale(.9);
+  background:white;
+  border-radius:20px;
+  padding:25px 35px;
+  box-shadow:0 15px 50px rgba(80,40,60,.2);
+  z-index:400;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  text-align:center;
+  color:var(--main-dark);
+  font-weight:800;
+}
+
+.saved-popup.show{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:480px){
+  .shop-name{
+    font-size:21px;
+  }
+
+  .container{
+    width:calc(100% - 18px);
+  }
+
+  .banner{
+    border-radius:17px;
+  }
+
+  .modal-box{
+    padding:17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="header-top">
+
+    <div class="shop-name" id="shopName">
+      ♡ My Cute Shop ♡
+    </div>
+
+    <button
+      class="settings-btn"
+      onclick="openAdminLogin()"
+      aria-label="ตั้งค่า">
+      ⚙️
+    </button>
+
+  </div>
+
+  <div
+    class="shop-description"
+    id="shopDescription">
+    ♡ Thank you for support ♡
+  </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+  <!-- BANNER -->
+
+  <div class="banner">
+
+    <img
+      id="bannerImage"
+      src=""
+      alt="Banner"
+      style="display:none;">
+
+    <div
+      id="bannerPlaceholder"
+      class="banner-placeholder">
+      ♡ ร้านของเรา ♡
+    </div>
+
+  </div>
+
+
+  <!-- VOTE -->
+
+  <div class="vote-card">
+
+    <div class="vote-title">
+      คุณชอบร้านนี้ไหม? ♡
+    </div>
+
+    <div class="vote-buttons">
+
+      <button
+        class="vote-btn plus-btn"
+        onclick="addPlus()">
+
+        ♡ +1
+
+        <span
+          class="vote-number"
+          id="plusCount">
+          0
+        </span>
+
+      </button>
+
+
+      <button
+        class="vote-btn minus-btn"
+        onclick="openMinusModal()">
+
+        ♡ -1
+
+        <span
+          class="vote-number"
+          id="minusCount">
+          0
+        </span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- RATING -->
+
+  <div class="rating-card">
+
+    <div class="average-number" id="averageRating">
+      0.0
+    </div>
+
+    <div
+      class="average-stars"
+      id="averageStars">
+      ☆☆☆☆☆
+    </div>
+
+    <div
+      class="review-count"
+      id="reviewCount">
+      0 รีวิว
+    </div>
+
+  </div>
+
+
+  <!-- REVIEW FORM -->
+
+  <div class="review-form">
+
+    <div class="section-title">
+      ✿ เขียนรีวิว
+    </div>
+
+    <input
+      id="reviewName"
+      class="input"
+      type="text"
+      placeholder="ชื่อของคุณ">
+
+    <div class="star-select">
+
+      <button
+        class="star"
+        data-star="1"
+        onclick="selectStar(1)">
+        ★
+      </button>
+
+      <button
+        class="star"
+        data-star="2"
+        onclick="selectStar(2)">
+        ★
+      </button>
+
+      <button
+        class="star"
+        data-star="3"
+        onclick="selectStar(3)">
+        ★
+      </button>
+
+      <button
+        class="star"
+        data-star="4"
+        onclick="selectStar(4)">
+        ★
+      </button>
+
+      <button
+        class="star"
+        data-star="5"
+        onclick="selectStar(5)">
+        ★
+      </button>
+
+    </div>
+
+    <textarea
+      id="reviewText"
+      class="input"
+      placeholder="เขียนรีวิวของคุณ..."></textarea>
+
+    <button
+      class="submit-btn"
+      onclick="submitReview()">
+      ส่งรีวิว ♡
+    </button>
+
+  </div>
+
+
+  <!-- REVIEWS -->
+
+  <div class="section-title">
+    รีวิวจากลูกค้า ♡
+  </div>
+
+  <div
+    class="reviews"
+    id="reviews">
+  </div>
+
+</main>
+
+
+<!-- =========================
+     MINUS MODAL
+========================= -->
+
+<div
+  class="modal"
+  id="minusModal">
+
+  <div class="modal-box">
+
+    <button
+      class="close-btn"
+      onclick="closeModal('minusModal')">
+      ×
+    </button>
+
+    <div
+      class="modal-title"
+      id="minusTitle">
+      ขอแจ้งข้อมูลเพิ่มเติม ♡
+    </div>
+
+    <div
+      class="minus-message"
+      id="minusMessage">
+      หากต้องการแจ้งปัญหา สามารถกดปุ่มด้านล่างได้เลย
+    </div>
+
+    <a
+      id="minusLink"
+      class="link-btn"
+      href="#"
+      target="_blank"
+      rel="noopener">
+      ติดต่อเรา
+    </a>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN LOGIN
+========================= -->
+
+<div
+  class="modal"
+  id="loginModal">
+
+  <div class="modal-box">
+
+    <button
+      class="close-btn"
+      onclick="closeModal('loginModal')">
+      ×
+    </button>
+
+    <div class="modal-title">
+      🔐 เข้าสู่ระบบแอดมิน
+    </div>
+
+    <input
+      id="adminPassword"
+      class="input"
+      type="password"
+      placeholder="รหัสผ่าน">
+
+    <button
+      class="submit-btn"
+      onclick="loginAdmin()">
+      เข้าสู่ระบบ
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div
+  class="modal"
+  id="adminModal">
+
+  <div class="modal-box">
+
+    <button
+      class="close-btn"
+      onclick="closeModal('adminModal')">
+      ×
+    </button>
+
+    <div class="modal-title">
+      ⚙️ ตั้งค่าเว็บไซต์
+    </div>
+
+
+    <!-- TABS -->
+
+    <div class="admin-tabs">
+
+      <button
+        class="admin-tab active"
+        onclick="showAdminTab('general',this)">
+        ร้าน
+      </button>
+
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('votes',this)">
+        +1 / -1
+      </button>
+
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('reviews',this)">
+        รีวิว
+      </button>
+
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('colors',this)">
+        สี
+      </button>
+
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('music',this)">
+        เพลง
+      </button>
+
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('password',this)">
+        รหัสผ่าน
+      </button>
+
+    </div>
+
+
+    <!-- =====================
+         GENERAL
+    ====================== -->
+
+    <div
+      class="admin-section active"
+      id="admin-general">
+
+      <label class="field-label">
+        ชื่อร้าน
+      </label>
+
+      <input
+        id="adminShopName"
+        class="input"
+        type="text">
+
+
+      <label class="field-label">
+        คำอธิบายร้าน
+      </label>
+
+      <input
+        id="adminShopDescription"
+        class="input"
+        type="text">
+
+
+      <label class="field-label">
+        รูปแบนเนอร์
+      </label>
+
+      <input
+        id="bannerFile"
+        class="file-input"
+        type="file"
+        accept="image/*"
+        onchange="previewBanner(event)">
+
+      <img
+        id="bannerPreview"
+        class="preview-image"
+        alt="ตัวอย่างแบนเนอร์">
+
+      <div class="music-status">
+        เลือกรูปจากโทรศัพท์ได้โดยตรง ♡
+      </div>
+
+
+      <button
+        class="admin-save"
+        onclick="saveGeneral()">
+        บันทึกข้อมูลร้าน
+      </button>
+
+    </div>
+
+
+    <!-- =====================
+         VOTES
+    ====================== -->
+
+    <div
+      class="admin-section"
+      id="admin-votes">
+
+      <label class="field-label">
+        จำนวน +1
+      </label>
+
+      <input
+        id="adminPlus"
+        class="input"
+        type="number"
+        min="0">
+
+
+      <label class="field-label">
+        จำนวน -1
+      </label>
+
+      <input
+        id="adminMinus"
+        class="input"
+        type="number"
+        min="0">
+
+
+      <label class="field-label">
+        หัวข้อ Popup -1
+      </label>
+
+      <input
+        id="adminMinusTitle"
+        class="input"
+        type="text">
+
+
+      <label class="field-label">
+        ข้อความ Popup -1
+      </label>
+
+      <textarea
+        id="adminMinusMessage"
+        class="input"></textarea>
+
+
+      <label class="field-label">
+        ข้อความปุ่ม
+      </label>
+
+      <input
+        id="adminMinusButton"
+        class="input"
+        type="text">
+
+
+      <label class="field-label">
+        ลิงก์ปุ่ม
+      </label>
+
+      <input
+        id="adminMinusLink"
+        class="input"
+        type="text"
+        placeholder="https://...">
+
+
+      <button
+        class="admin-save"
+        onclick="saveVotes()">
+        บันทึก +1 / -1
+      </button>
+
+    </div>
+
+
+    <!-- =====================
+         REVIEWS
+    ====================== -->
+
+    <div
+      class="admin-section"
+      id="admin-reviews">
+
+      <div class="section-title">
+        เพิ่มรีวิว
+      </div>
+
+      <input
+        id="newReviewName"
+        class="input"
+        placeholder="ชื่อ">
+
+      <select
+        id="newReviewStars"
+        class="input">
+
+        <option value="5">★★★★★ 5 ดาว</option>
+        <option value="4">★★★★☆ 4 ดาว</option>
+        <option value="3">★★★☆☆ 3 ดาว</option>
+        <option value="2">★★☆☆☆ 2 ดาว</option>
+        <option value="1">★☆☆☆☆ 1 ดาว</option>
+
+      </select>
+
+      <textarea
+        id="newReviewText"
+        class="input"
+        placeholder="ข้อความรีวิว"></textarea>
+
+      <button
+        class="admin-save"
+        onclick="addAdminReview()">
+        เพิ่มรีวิว
+      </button>
+
+      <div
+        id="adminReviewsList"
+        style="margin-top:18px;">
+      </div>
+
+    </div>
+
+
+    <!-- =====================
+         COLORS
+    ====================== -->
+
+    <div
+      class="admin-section"
+      id="admin-colors">
+
+      <label class="field-label">
+        สีหลัก
+      </label>
+
+      <div class="color-row">
+
+        <input
+          id="colorMainText"
+          class="input"
+          type="text">
+
+        <input
+          id="colorMain"
+          class="color-input"
+          type="color"
+          onchange="syncColorText('colorMain','colorMainText')">
+
+      </div>
+
+
+      <label class="field-label">
+        สีหลักเข้ม
+      </label>
+
+      <div class="color-row">
+
+        <input
+          id="colorDarkText"
+          class="input"
+          type="text">
+
+        <input
+          id="colorDark"
+          class="color-input"
+          type="color"
+          onchange="syncColorText('colorDark','colorDarkText')">
+
+      </div>
+
+
+      <label class="field-label">
+        สีพื้นอ่อน
+      </label>
+
+      <div class="color-row">
+
+        <input
+          id="colorLightText"
+          class="input"
+          type="text">
+
+        <input
+          id="colorLight"
+          class="color-input"
+          type="color"
+          onchange="syncColorText('colorLight','colorLightText')">
+
+      </div>
+
+
+      <label class="field-label">
+        สีพื้นเว็บ
+      </label>
+
+      <div class="color-row">
+
+        <input
+          id="colorBgText"
+          class="input"
+          type="text">
+
+        <input
+          id="colorBg"
+          class="color-input"
+          type="color"
+          onchange="syncColorText('colorBg','colorBgText')">
+
+      </div>
+
+
+      <label class="field-label">
+        สีตัวหนังสือ
+      </label>
+
+      <div class="color-row">
+
+        <input
+          id="colorTextText"
+          class="input"
+          type="text">
+
+        <input
+          id="colorText"
+          class="color-input"
+          type="color"
+          onchange="syncColorText('colorText','colorTextText')">
+
+      </div>
+
+
+      <button
+        class="admin-save"
+        onclick="saveColors()">
+        บันทึกสี
+      </button>
+
+    </div>
+
+
+    <!-- =====================
+         MUSIC
+    ====================== -->
+
+    <div
+      class="admin-section"
+      id="admin-music">
+
+      <label class="field-label">
+        เพลง
+      </label>
+
+      <input
+        id="musicFile"
+        class="file-input"
+        type="file"
+        accept="audio/*"
+        onchange="musicFileSelected(event)">
+
+      <div
+        class="music-status"
+        id="musicStatus">
+        ยังไม่ได้เลือกเพลง
+      </div>
+
+
+      <label class="field-label">
+        หรือใส่ URL เพลง
+      </label>
+
+      <input
+        id="musicUrl"
+        class="input"
+        type="text"
+        placeholder="https://example.com/music.mp3">
+
+
+      <div class="music-control">
+
+        <button
+          class="music-toggle"
+          onclick="toggleMusic()">
+          🎵 เปิด / ปิดเพลง
+        </button>
+
+        <span id="musicState">
+          ปิดอยู่
+        </span>
+
+      </div>
+
+
+      <button
+        class="admin-save"
+        onclick="saveMusic()">
+        บันทึกเพลง
+      </button>
+
+      <div class="music-status">
+        หมายเหตุ: มือถือบางรุ่นจะไม่อนุญาตให้เพลงเล่นอัตโนมัติ ต้องกดปุ่มเปิดเพลงก่อน
+      </div>
+
+    </div>
+
+
+    <!-- =====================
+         PASSWORD
+    ====================== -->
+
+    <div
+      class="admin-section"
+      id="admin-password">
+
+      <label class="field-label">
+        รหัสผ่านปัจจุบัน
+      </label>
+
+      <input
+        id="oldPassword"
+        class="input"
+        type="password">
+
+
+      <label class="field-label">
+        รหัสผ่านใหม่
+      </label>
+
+      <input
+        id="newPassword"
+        class="input"
+        type="password">
+
+
+      <label class="field-label">
+        ยืนยันรหัสผ่านใหม่
+      </label>
+
+      <input
+        id="confirmPassword"
+        class="input"
+        type="password">
+
+
+      <button
+        class="admin-save"
+        onclick="changePassword()">
+        เปลี่ยนรหัสผ่าน
+      </button>
+
+    </div>
+
+
+    <button
+      class="danger-btn"
+      onclick="logoutAdmin()">
+      ออกจากระบบแอดมิน
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SAVED POPUP
+========================= -->
+
+<div
+  class="saved-popup"
+  id="savedPopup">
+
+  ✓ บันทึกข้อมูลแล้ว ♡
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+<!-- =========================
+     AUDIO
+========================= -->
+
+<audio
+  id="backgroundMusic"
+  loop>
+</audio>
+
+
+<script>
+
+/* =========================================================
+   DEFAULT DATA
+========================================================= */
+
+const DEFAULT_DATA = {
+
+  shop:{
+    name:"♡ My Cute Shop ♡",
+    description:"♡ Thank you for support ♡",
+    banner:""
+  },
+
+  votes:{
+    plus:0,
+    minus:0
+  },
+
+  minusPopup:{
+    title:"ขอแจ้งข้อมูลเพิ่มเติม ♡",
+    message:"หากต้องการแจ้งปัญหา สามารถกดปุ่มด้านล่างได้เลย",
+    button:"ติดต่อเรา",
+    link:"#"
+  },
+
+  reviews:[],
+
+  colors:{
+    main:"#f49bc0",
+    dark:"#db82a8",
+    light:"#fff0f6",
+    bg:"#fff7fb",
+    text:"#665761"
+  },
+
+  music:{
+    url:"",
+    enabled:false
+  },
+
+  password:"1234"
+
+};
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let data;
+
+let selectedStar = 0;
+
+let adminLoggedIn = false;
+
+let editingReviewId = null;
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+function loadData(){
+
+  try{
+
+    const saved =
+      localStorage.getItem("cuteShopReviewData");
+
+    if(saved){
+
+      const parsed = JSON.parse(saved);
+
+      data = {
+
+        ...DEFAULT_DATA,
+
+        ...parsed,
+
+        shop:{
+          ...DEFAULT_DATA.shop,
+          ...(parsed.shop || {})
+        },
+
+        votes:{
+          ...DEFAULT_DATA.votes,
+          ...(parsed.votes || {})
+        },
+
+        minusPopup:{
+          ...DEFAULT_DATA.minusPopup,
+          ...(parsed.minusPopup || {})
+        },
+
+        colors:{
+          ...DEFAULT_DATA.colors,
+          ...(parsed.colors || {})
+        },
+
+        music:{
+          ...DEFAULT_DATA.music,
+          ...(parsed.music || {})
+        },
+
+        reviews:Array.isArray(parsed.reviews)
+          ? parsed.reviews
+          : []
+
+      };
+
+    }else{
+
+      data = JSON.parse(
+        JSON.stringify(DEFAULT_DATA)
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    data = JSON.parse(
+      JSON.stringify(DEFAULT_DATA)
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE DATA
+========================================================= */
+
+function saveData(){
+
+  localStorage.setItem(
+    "cuteShopReviewData",
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   COLORS
+========================================================= */
+
+function applyColors(){
+
+  document.documentElement.style.setProperty(
+    "--main",
+    data.colors.main
+  );
+
+  document.documentElement.style.setProperty(
+    "--main-dark",
+    data.colors.dark
+  );
+
+  document.documentElement.style.setProperty(
+    "--light",
+    data.colors.light
+  );
+
+  document.documentElement.style.setProperty(
+    "--bg",
+    data.colors.bg
+  );
+
+  document.documentElement.style.setProperty(
+    "--text",
+    data.colors.text
+  );
+
+}
+
+
+/* =========================================================
+   RENDER SHOP
+========================================================= */
+
+function renderShop(){
+
+  document.title =
+    data.shop.name || "ร้านของเรา ♡";
+
+  document.getElementById("shopName")
+    .textContent =
+      data.shop.name;
+
+  document.getElementById("shopDescription")
+    .textContent =
+      data.shop.description;
+
+
+  const banner =
+    document.getElementById("bannerImage");
+
+  const placeholder =
+    document.getElementById("bannerPlaceholder");
+
+
+  if(data.shop.banner){
+
+    banner.src = data.shop.banner;
+
+    banner.style.display = "block";
+
+    placeholder.style.display = "none";
+
+  }else{
+
+    banner.removeAttribute("src");
+
+    banner.style.display = "none";
+
+    placeholder.style.display = "flex";
+
+  }
+
+
+  document.getElementById("plusCount")
+    .textContent =
+      data.votes.plus;
+
+  document.getElementById("minusCount")
+    .textContent =
+      data.votes.minus;
+
+
+  document.getElementById("minusTitle")
+    .textContent =
+      data.minusPopup.title;
+
+  document.getElementById("minusMessage")
+    .textContent =
+      data.minusPopup.message;
+
+  document.getElementById("minusLink")
+    .textContent =
+      data.minusPopup.button;
+
+  document.getElementById("minusLink")
+    .href =
+      data.minusPopup.link || "#";
+
+
+  renderRating();
+
+  renderReviews();
+
+  applyColors();
+
+}
+
+
+/* =========================================================
+   +1
+========================================================= */
+
+function addPlus(){
+
+  data.votes.plus++;
+
+  saveData();
+
+  renderShop();
+
+  showToast("เพิ่ม +1 แล้ว ♡");
+
+}
+
+
+/* =========================================================
+   -1
+========================================================= */
+
+function openMinusModal(){
+
+  data.votes.minus++;
+
+  saveData();
+
+  renderShop();
+
+  document.getElementById("minusModal")
+    .classList.add("show");
+
+}
+
+
+function openMinusLink(){
+
+  const link =
+    data.minusPopup.link;
+
+  if(link && link !== "#"){
+
+    window.open(
+      link,
+      "_blank"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+function getAverageRating(){
+
+  if(!data.reviews.length){
+
+    return 0;
+
+  }
+
+  const total =
+    data.reviews.reduce(
+      (sum,review) =>
+        sum + Number(review.stars || 0),
+      0
+    );
+
+  return total / data.reviews.length;
+
+}
+
+
+function createStars(number){
+
+  let result = "";
+
+  for(let i=1;i<=5;i++){
+
+    result +=
+      i <= Math.round(number)
+        ? "★"
+        : "☆";
+
+  }
+
+  return result;
+
+}
+
+
+function renderRating(){
+
+  const average =
+    getAverageRating();
+
+  document.getElementById("averageRating")
+    .textContent =
+      average.toFixed(1);
+
+  document.getElementById("averageStars")
+    .textContent =
+      createStars(average);
+
+  document.getElementById("reviewCount")
+    .textContent =
+      `${data.reviews.length} รีวิว`;
+
+}
+
+
+/* =========================================================
+   RENDER REVIEWS
+========================================================= */
+
+function renderReviews(){
+
+  const container =
+    document.getElementById("reviews");
+
+  if(!data.reviews.length){
+
+    container.innerHTML = `
+      <div class="review-item empty-review">
+        ยังไม่มีรีวิว ♡<br>
+        เป็นคนแรกที่เขียนรีวิวได้เลย!
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    data.reviews
+      .map(review => `
+
+        <div class="review-item">
+
+          <div class="review-head">
+
+            <div class="reviewer-name">
+              ${escapeHTML(review.name)}
+            </div>
+
+            <div class="review-stars">
+              ${createStars(review.stars)}
+            </div>
+
+          </div>
+
+          <div class="review-text">
+            ${escapeHTML(review.text)}
+          </div>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+
+/* =========================================================
+   STAR SELECT
+========================================================= */
+
+function selectStar(number){
+
+  selectedStar = number;
+
+  document.querySelectorAll(".star")
+    .forEach(star => {
+
+      const value =
+        Number(star.dataset.star);
+
+      star.classList.toggle(
+        "active",
+        value <= number
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   SUBMIT REVIEW
+========================================================= */
+
+function submitReview(){
+
+  const name =
+    document.getElementById("reviewName")
+      .value.trim();
+
+  const text =
+    document.getElementById("reviewText")
+      .value.trim();
+
+
+  if(!name){
+
+    showToast("กรุณาใส่ชื่อ ♡");
+
+    return;
+
+  }
+
+
+  if(!selectedStar){
+
+    showToast("กรุณาเลือกดาว");
+
+    return;
+
+  }
+
+
+  if(!text){
+
+    showToast("กรุณาเขียนรีวิว");
+
+    return;
+
+  }
+
+
+  data.reviews.push({
+
+    id:Date.now(),
+
+    name:name,
+
+    stars:selectedStar,
+
+    text:text
+
+  });
+
+
+  saveData();
+
+  document.getElementById("reviewName")
+    .value = "";
+
+  document.getElementById("reviewText")
+    .value = "";
+
+
+  selectedStar = 0;
+
+  document.querySelectorAll(".star")
+    .forEach(star =>
+      star.classList.remove("active")
+    );
+
+
+  renderShop();
+
+  showSaved();
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function closeModal(id){
+
+  document.getElementById(id)
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function openAdminLogin(){
+
+  if(adminLoggedIn){
+
+    openAdminPanel();
+
+    return;
+
+  }
+
+  document.getElementById("adminPassword")
+    .value = "";
+
+  document.getElementById("loginModal")
+    .classList.add("show");
+
+}
+
+
+function loginAdmin(){
+
+  const password =
+    document.getElementById("adminPassword")
+      .value;
+
+
+  if(password === data.password){
+
+    adminLoggedIn = true;
+
+    closeModal("loginModal");
+
+    openAdminPanel();
+
+    showToast("เข้าสู่ระบบแล้ว ♡");
+
+  }else{
+
+    showToast("รหัสผ่านไม่ถูกต้อง");
+
+  }
+
+}
+
+
+/* =========================================================
+   ADMIN PANEL
+========================================================= */
+
+function openAdminPanel(){
+
+  fillAdminFields();
+
+  document.getElementById("adminModal")
+    .classList.add("show");
+
+}
+
+
+function logoutAdmin(){
+
+  adminLoggedIn = false;
+
+  closeModal("adminModal");
+
+  showToast("ออกจากระบบแล้ว");
+
+}
+
+
+/* =========================================================
+   ADMIN TABS
+========================================================= */
+
+function showAdminTab(tab,button){
+
+  document.querySelectorAll(".admin-section")
+    .forEach(section =>
+      section.classList.remove("active")
+    );
+
+
+  document.querySelectorAll(".admin-tab")
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+
+  document.getElementById(
+    "admin-" + tab
+  ).classList.add("active");
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }
+
+
+  if(tab === "reviews"){
+
+    renderAdminReviews();
+
+  }
+
+}
+
+
+/* =========================================================
+   FILL ADMIN
+========================================================= */
+
+function fillAdminFields(){
+
+  document.getElementById("adminShopName")
+    .value =
+      data.shop.name;
+
+  document.getElementById("adminShopDescription")
+    .value =
+      data.shop.description;
+
+
+  document.getElementById("adminPlus")
+    .value =
+      data.votes.plus;
+
+  document.getElementById("adminMinus")
+    .value =
+      data.votes.minus;
+
+
+  document.getElementById("adminMinusTitle")
+    .value =
+      data.minusPopup.title;
+
+  document.getElementById("adminMinusMessage")
+    .value =
+      data.minusPopup.message;
+
+  document.getElementById("adminMinusButton")
+    .value =
+      data.minusPopup.button;
+
+  document.getElementById("adminMinusLink")
+    .value =
+      data.minusPopup.link;
+
+
+  fillColors();
+
+
+  document.getElementById("musicUrl")
+    .value =
+      data.music.url || "";
+
+
+  updateMusicStatus();
+
+
+  const preview =
+    document.getElementById("bannerPreview");
+
+
+  if(data.shop.banner){
+
+    preview.src =
+      data.shop.banner;
+
+    preview.style.display =
+      "block";
+
+  }else{
+
+    preview.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* =========================================================
+   BANNER FILE
+========================================================= */
+
+function previewBanner(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  if(!file.type.startsWith("image/")){
+
+    showToast("กรุณาเลือกไฟล์รูปภาพ");
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = function(e){
+
+    const imageData =
+      e.target.result;
+
+
+    data.shop.banner =
+      imageData;
+
+
+    const preview =
+      document.getElementById("bannerPreview");
+
+
+    preview.src =
+      imageData;
+
+    preview.style.display =
+      "block";
+
+
+    showToast("เลือกรูปแล้ว ♡");
+
+  };
+
+
+  reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   SAVE GENERAL
+========================================================= */
+
+function saveGeneral(){
+
+  data.shop.name =
+    document.getElementById("adminShopName")
+      .value.trim()
+      || "♡ My Cute Shop ♡";
+
+
+  data.shop.description =
+    document.getElementById("adminShopDescription")
+      .value.trim();
+
+
+  saveData();
+
+  renderShop();
+
+  showSaved();
+
+}
+
+
+/* =========================================================
+   SAVE VOTES
+========================================================= */
+
+function saveVotes(){
+
+  data.votes.plus =
+    Math.max(
+      0,
+      Number(
+        document.getElementById("adminPlus")
+          .value
+      ) || 0
+    );
+
+
+  data.votes.minus =
+    Math.max(
+      0,
+      Number(
+        document.getElementById("adminMinus")
+          .value
+      ) || 0
+    );
+
+
+  data.minusPopup.title =
+    document.getElementById("adminMinusTitle")
+      .value.trim();
+
+
+  data.minusPopup.message =
+    document.getElementById("adminMinusMessage")
+      .value.trim();
+
+
+  data.minusPopup.button =
+    document.getElementById("adminMinusButton")
+      .value.trim();
+
+
+  data.minusPopup.link =
+    document.getElementById("adminMinusLink")
+      .value.trim();
+
+
+  saveData();
+
+  renderShop();
+
+  showSaved();
+
+}
+
+
+/* =========================================================
+   ADMIN REVIEWS
+========================================================= */
+
+function addAdminReview(){
+
+  const name =
+    document.getElementById("newReviewName")
+      .value.trim();
+
+  const stars =
+    Number(
+      document.getElementById("newReviewStars")
+        .value
+    );
+
+  const text =
+    document.getElementById("newReviewText")
+      .value.trim();
+
+
+  if(!name || !text){
+
+    showToast("กรอกข้อมูลให้ครบ");
+
+    return;
+
+  }
+
+
+  data.reviews.push({
+
+    id:Date.now(),
+
+    name:name,
+
+    stars:stars,
+
+    text:text
+
+  });
+
+
+  saveData();
+
+  document.getElementById("newReviewName")
+    .value = "";
+
+  document.getElementById("newReviewText")
+    .value = "";
+
+
+  renderAdminReviews();
+
+  renderShop();
+
+  showSaved();
+
+}
+
+
+function renderAdminReviews(){
+
+  const container =
+    document.getElementById("adminReviewsList");
+
+
+  if(!data.reviews.length){
+
+    container.innerHTML = `
+      <div class="empty-review">
+        ยังไม่มีรีวิว
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    data.reviews
+      .map(review => `
+
+        <div class="admin-review">
+
+          <strong>
+            ${escapeHTML(review.name)}
+          </strong>
+
+          <div class="review-stars">
+            ${createStars(review.stars)}
+          </div>
+
+          <div style="margin-top:6px;">
+            ${escapeHTML(review.text)}
+          </div>
+
+          <div class="admin-review-actions">
+
+            <button
+              class="small-btn"
+              onclick="editAdminReview(${review.id})">
+              แก้ไข
+            </button>
+
+            <button
+              class="small-btn delete-btn"
+              onclick="deleteAdminReview(${review.id})">
+              ลบ
+            </button>
+
+          </div>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+
+function editAdminReview(id){
+
+  const review =
+    data.reviews.find(
+      item => item.id === id
+    );
+
+
+  if(!review){
+
+    return;
+
+  }
+
+
+  const name =
+    prompt(
+      "แก้ชื่อรีวิว",
+      review.name
+    );
+
+
+  if(name === null){
+
+    return;
+
+  }
+
+
+  const stars =
+    prompt(
+      "แก้คะแนน 1-5",
+      review.stars
+    );
+
+
+  if(stars === null){
+
+    return;
+
+  }
+
+
+  const starNumber =
+    Number(stars);
+
+
+  if(
+    !Number.isInteger(starNumber) ||
+    starNumber < 1 ||
+    starNumber > 5
+  ){
+
+    showToast("คะแนนต้องอยู่ระหว่าง 1-5");
+
+    return;
+
+  }
+
+
+  const text =
+    prompt(
+      "แก้ข้อความรีวิว",
+      review.text
+    );
+
+
+  if(text === null){
+
+    return;
+
+  }
+
+
+  review.name =
+    name.trim() || review.name;
+
+  review.stars =
+    starNumber;
+
+  review.text =
+    text.trim() || review.text;
+
+
+  saveData();
+
+  renderAdminReviews();
+
+  renderShop();
+
+  showSaved();
+
+}
+
+
+function deleteAdminReview(id){
+
+  const confirmDelete =
+    confirm(
+      "ต้องการลบรีวิวนี้หรือไม่?"
+    );
+
+
+  if(!confirmDelete){
+
+    return;
+
+  }
+
+
+  data.reviews =
+    data.reviews.filter(
+      review => review.id !== id
+    );
+
+
+  saveData();
+
+  renderAdminReviews();
+
+  renderShop();
+
+  showSaved();
+
+}
+
+
+/* =========================================================
+   COLORS ADMIN
+========================================================= */
+
+function fillColors(){
+
+  document.getElementById("colorMainText")
+    .value = data.colors.main;
+
+  document.getElementById("colorMain")
+    .value = validColor(data.colors.main)
+      ? data.colors.main
+      : "#f49bc0";
+
+
+  document.getElementById("colorDarkText")
+    .value = data.colors.dark;
+
+  document.getElementById("colorDark")
+    .value = validColor(data.colors.dark)
+      ? data.colors.dark
+      : "#db82a8";
+
+
+  document.getElementById("colorLightText")
+    .value = data.colors.light;
+
+  document.getElementById("colorLight")
+    .value = validColor(data.colors.light)
+      ? data.colors.light
+      : "#fff0f6";
+
+
+  document.getElementById("colorBgText")
+    .value = data.colors.bg;
+
+  document.getElementById("colorBg")
+    .value = validColor(data.colors.bg)
+      ? data.colors.bg
+      : "#fff7fb";
+
+
+  document.getElementById("colorTextText")
+    .value = data.colors.text;
+
+  document.getElementById("colorText")
+    .value = validColor(data.colors.text)
+      ? data.colors.text
+      : "#665761";
+
+}
+
+
+function validColor(value){
+
+  return /^#[0-9A-Fa-f]{6}$/.test(value);
+
+}
+
+
+function syncColorText(colorId,textId){
+
+  document.getElementById(textId)
+    .value =
+      document.getElementById(colorId)
+        .value;
+
+}
+
+
+function saveColors(){
+
+  const main =
+    document.getElementById("colorMainText")
+      .value.trim();
+
+  const dark =
+    document.getElementById("colorDarkText")
+      .value.trim();
+
+  const light =
+    document.getElementById("colorLightText")
+      .value.trim();
+
+  const bg =
+    document.getElementById("colorBgText")
+      .value.trim();
+
+  const text =
+    document.getElementById("colorTextText")
+      .value.trim();
+
+
+  if(
+    !validColor(main) ||
+    !validColor(dark) ||
+    !validColor(light) ||
+    !validColor(bg) ||
+    !validColor(text)
+  ){
+
+    showToast(
+      "กรุณาใช้สีรูปแบบ #ffffff"
+    );
+
+    return;
+
+  }
+
+
+  data.colors = {
+
+    main:main,
+
+    dark:dark,
+
+    light:light,
+
+    bg:bg,
+
+    text:text
+
+  };
+
+
+  saveData();
+
+  applyColors();
+
+  showSaved();
+
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+function musicFileSelected(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  if(!file.type.startsWith("audio/")){
+
+    showToast("กรุณาเลือกไฟล์เพลง");
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function(e){
+
+      data.music.url =
+        e.target.result;
+
+      data.music.enabled =
+        false;
+
+      updateMusicStatus();
+
+      showToast("เลือกเพลงแล้ว ♡");
+
+    };
+
+
+  reader.readAsDataURL(file);
+
+}
+
+
+function updateMusicStatus(){
+
+  const status =
+    document.getElementById("musicStatus");
+
+
+  if(data.music.url){
+
+    status.textContent =
+      "มีเพลงที่ตั้งค่าไว้แล้ว ♫";
+
+  }else{
+
+    status.textContent =
+      "ยังไม่ได้เลือกเพลง";
+
+  }
+
+
+  document.getElementById("musicState")
+    .textContent =
+      data.music.enabled
+        ? "เปิดอยู่"
+        : "ปิดอยู่";
+
+}
+
+
+function saveMusic(){
+
+  const url =
+    document.getElementById("musicUrl")
+      .value.trim();
+
+
+  /*
+    ถ้ามี URL ให้ใช้ URL
+    แต่ถ้าเลือกไฟล์จากมือถือไว้แล้ว
+    และ URL ว่าง ให้ใช้ไฟล์ที่เลือก
+  */
+
+  if(url){
+
+    data.music.url =
+      url;
+
+  }
+
+
+  saveData();
+
+  setupAudio();
+
+  updateMusicStatus();
+
+  showSaved();
+
+}
+
+
+function setupAudio(){
+
+  const audio =
+    document.getElementById("backgroundMusic");
+
+
+  if(data.music.url){
+
+    audio.src =
+      data.music.url;
+
+  }else{
+
+    audio.removeAttribute("src");
+
+  }
+
+}
+
+
+function toggleMusic(){
+
+  const audio =
+    document.getElementById("backgroundMusic");
+
+
+  if(!data.music.url){
+
+    showToast(
+      "ยังไม่มีเพลง กรุณาเลือกเพลงก่อน"
+    );
+
+    return;
+
+  }
+
+
+  if(audio.paused){
+
+    audio.play()
+      .then(() => {
+
+        data.music.enabled = true;
+
+        saveData();
+
+        updateMusicStatus();
+
+      })
+      .catch(() => {
+
+        showToast(
+          "กดอีกครั้งเพื่อเปิดเพลง ♫"
+        );
+
+      });
+
+  }else{
+
+    audio.pause();
+
+    data.music.enabled = false;
+
+    saveData();
+
+    updateMusicStatus();
+
+  }
+
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+function changePassword(){
+
+  const oldPassword =
+    document.getElementById("oldPassword")
+      .value;
+
+  const newPassword =
+    document.getElementById("newPassword")
+      .value;
+
+  const confirmPassword =
+    document.getElementById("confirmPassword")
+      .value;
+
+
+  if(oldPassword !== data.password){
+
+    showToast(
+      "รหัสผ่านปัจจุบันไม่ถูกต้อง"
+    );
+
+    return;
+
+  }
+
+
+  if(!newPassword){
+
+    showToast(
+      "กรุณาใส่รหัสผ่านใหม่"
+    );
+
+    return;
+
+  }
+
+
+  if(newPassword !== confirmPassword){
+
+    showToast(
+      "รหัสผ่านใหม่ไม่ตรงกัน"
+    );
+
+    return;
+
+  }
+
+
+  data.password =
+    newPassword;
+
+
+  saveData();
+
+
+  document.getElementById("oldPassword")
+    .value = "";
+
+  document.getElementById("newPassword")
+    .value = "";
+
+  document.getElementById("confirmPassword")
+    .value = "";
+
+
+  showSaved();
+
+}
+
+
+/* =========================================================
+   SAVED POPUP
+========================================================= */
+
+let savedTimer;
+
+
+function showSaved(){
+
+  const popup =
+    document.getElementById("savedPopup");
+
+
+  popup.classList.add("show");
+
+
+  clearTimeout(savedTimer);
+
+
+  savedTimer =
+    setTimeout(() => {
+
+      popup.classList.remove("show");
+
+    },1500);
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+
+  clearTimeout(toastTimer);
+
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    },1800);
+
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+document.querySelectorAll(".modal")
+  .forEach(modal => {
+
+    modal.addEventListener(
+      "click",
+      function(event){
+
+        if(event.target === modal){
+
+          modal.classList.remove("show");
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+
+      document.querySelectorAll(".modal")
+        .forEach(modal =>
+          modal.classList.remove("show")
+        );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadData();
+
+applyColors();
+
+renderShop();
+
+setupAudio();
+
+</script>
+
+</body>
+</html>
