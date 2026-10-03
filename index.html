@@ -891,16 +891,39 @@ button{
 
         </div>
 
-        <div class="input-group">
+<div class="input-group">
 
-          <label>URL รูปแบนเนอร์</label>
+  <label>รูปแบนเนอร์</label>
 
-          <input
-            id="adminBanner"
-            type="text"
-            placeholder="https://...">
+  <input
+    id="adminBannerFile"
+    type="file"
+    accept="image/*"
+    onchange="previewBannerFromPhone(event)">
 
-        </div>
+  <div
+    id="bannerPreview"
+    style="
+      margin-top:10px;
+      border-radius:14px;
+      overflow:hidden;
+      display:none;
+      border:1px solid var(--border);
+    ">
+
+    <img
+      id="bannerPreviewImage"
+      style="
+        width:100%;
+        max-height:220px;
+        object-fit:cover;
+        display:block;
+      "
+      alt="ตัวอย่างแบนเนอร์">
+
+  </div>
+
+</div>
 
         <button
           class="main-button"
