@@ -1,0 +1,3778 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Cute Shop ♡</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#fff7fb;
+  --card:#ffffff;
+  --text:#665761;
+  --main:#f49bc0;
+  --main-dark:#db82a8;
+  --button:#f5a0c2;
+  --button-text:#ffffff;
+  --plus:#f49bc0;
+  --minus:#b8b8b8;
+  --border:#f4d8e4;
+}
+
+body{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Thai",
+    sans-serif;
+
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.page{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  padding:18px 14px 40px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.shop-header{
+  text-align:center;
+  margin-bottom:16px;
+}
+
+.shop-name{
+  font-size:25px;
+  font-weight:800;
+  color:var(--main-dark);
+  margin-bottom:5px;
+}
+
+.shop-description{
+  font-size:14px;
+  color:var(--text);
+}
+
+
+/* =====================================================
+   BANNER
+===================================================== */
+
+.banner-card{
+  width:100%;
+  margin:0 auto 18px;
+  border-radius:22px;
+  overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:0 5px 18px rgba(220,130,170,.12);
+}
+
+.banner-card img{
+  width:100%;
+  display:block;
+  max-height:330px;
+  object-fit:cover;
+}
+
+.banner-empty{
+  height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#c7aeb9;
+  font-size:14px;
+  background:#fffafd;
+}
+
+
+/* =====================================================
+   VOTE
+===================================================== */
+
+.vote-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.vote-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px 12px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(220,130,170,.08);
+}
+
+.vote-card button{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:13px 8px;
+  color:white;
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.plus-btn{
+  background:var(--plus);
+}
+
+.minus-btn{
+  background:var(--minus);
+}
+
+.vote-number{
+  font-size:24px;
+  font-weight:800;
+}
+
+
+/* =====================================================
+   RATING
+===================================================== */
+
+.rating-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.rating-title{
+  font-size:17px;
+  font-weight:800;
+  margin-bottom:9px;
+}
+
+.rating-score{
+  font-size:34px;
+  font-weight:900;
+  color:var(--main-dark);
+}
+
+.stars{
+  color:#ffc65a;
+  letter-spacing:2px;
+  font-size:22px;
+  margin:3px 0;
+}
+
+.rating-count{
+  font-size:13px;
+  color:#9a858f;
+}
+
+
+/* =====================================================
+   WRITE REVIEW
+===================================================== */
+
+.write-review{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.input-group{
+  margin-bottom:13px;
+}
+
+.input-group label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+  width:100%;
+  border:1px solid var(--border);
+  background:#fffafd;
+  border-radius:13px;
+  padding:11px 12px;
+  color:var(--text);
+  outline:none;
+}
+
+.input-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus{
+  border-color:var(--main);
+}
+
+.submit-btn{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  background:var(--button);
+  color:var(--button-text);
+  padding:13px;
+  font-weight:800;
+}
+
+
+/* =====================================================
+   REVIEW
+===================================================== */
+
+.review-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.review-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.review-name{
+  font-weight:800;
+}
+
+.review-stars{
+  color:#ffc65a;
+  font-size:17px;
+  white-space:nowrap;
+}
+
+.review-text{
+  margin-top:8px;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
+.review-empty{
+  text-align:center;
+  padding:25px;
+  color:#a9949e;
+}
+
+
+/* =====================================================
+   ADMIN BUTTON
+===================================================== */
+
+.admin-btn{
+  position:fixed;
+
+  right:14px;
+  bottom:14px;
+
+  width:46px;
+  height:46px;
+
+  border:none;
+  border-radius:50%;
+
+  background:#ffffff;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
+
+  z-index:50;
+
+  transition:transform .15s ease;
+}
+
+.admin-btn:hover{
+  transform:scale(1.05);
+}
+
+.admin-btn:active{
+  transform:scale(.92);
+}
+
+
+/* =====================================================
+   MINIMAL GEAR ICON
+===================================================== */
+
+.gear-icon{
+  width:23px;
+  height:23px;
+
+  display:block;
+
+  fill:#777;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:rgba(70,45,55,.38);
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:18px;
+
+  z-index:100;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:500px;
+  max-height:90vh;
+
+  overflow-y:auto;
+
+  background:white;
+
+  border-radius:24px;
+
+  padding:20px;
+
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.2);
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:900;
+
+  margin-bottom:15px;
+
+  color:var(--main-dark);
+}
+
+.modal-close{
+  float:right;
+
+  border:0;
+  background:none;
+
+  font-size:28px;
+
+  color:#9c8992;
+}
+
+
+/* =====================================================
+   MINUS MODAL
+===================================================== */
+
+.minus-message{
+  text-align:center;
+  padding:10px 5px 18px;
+}
+
+.minus-message h3{
+  margin-bottom:10px;
+}
+
+.minus-message p{
+  line-height:1.6;
+  color:#776770;
+}
+
+.minus-link-btn{
+  width:100%;
+
+  border:0;
+  border-radius:14px;
+
+  padding:13px;
+
+  background:#aaa;
+
+  color:white;
+
+  font-weight:800;
+}
+
+
+/* =====================================================
+   ADMIN TABS
+===================================================== */
+
+.admin-tabs{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:7px;
+
+  margin-bottom:15px;
+}
+
+.admin-tab{
+  border:1px solid var(--border);
+
+  background:#fff7fb;
+
+  border-radius:12px;
+
+  padding:9px 4px;
+
+  font-size:12px;
+
+  color:var(--text);
+}
+
+.admin-tab.active{
+  background:var(--main);
+
+  color:white;
+
+  border-color:var(--main);
+}
+
+
+/* =====================================================
+   ADMIN PANEL
+===================================================== */
+
+.admin-panel{
+  display:none;
+}
+
+.admin-panel.active{
+  display:block;
+}
+
+.save-btn{
+  width:100%;
+
+  border:0;
+
+  border-radius:14px;
+
+  padding:13px;
+
+  background:var(--main-dark);
+
+  color:white;
+
+  font-weight:800;
+
+  margin-top:4px;
+}
+
+.danger-btn{
+  border:0;
+
+  border-radius:11px;
+
+  background:#e99494;
+
+  color:white;
+
+  padding:8px 11px;
+}
+
+.small-btn{
+  border:0;
+
+  border-radius:10px;
+
+  background:var(--main);
+
+  color:white;
+
+  padding:8px 11px;
+}
+
+
+/* =====================================================
+   ADMIN REVIEWS
+===================================================== */
+
+.review-admin-card{
+  border:1px solid var(--border);
+
+  border-radius:15px;
+
+  padding:13px;
+
+  margin-bottom:10px;
+}
+
+.review-admin-actions{
+  display:flex;
+
+  gap:7px;
+
+  margin-top:10px;
+}
+
+
+/* =====================================================
+   COLORS
+===================================================== */
+
+.color-row{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:10px;
+}
+
+.color-row label{
+  font-size:13px;
+}
+
+.color-input{
+  width:50px;
+  height:36px;
+
+  border:1px solid var(--border);
+
+  border-radius:9px;
+
+  padding:2px;
+
+  background:white;
+}
+
+
+/* =====================================================
+   SAVED POPUP
+===================================================== */
+
+.saved-popup{
+  position:fixed;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-50%)
+    scale(.9);
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  padding:18px 25px;
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.18);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.2s;
+
+  z-index:300;
+
+  font-weight:800;
+}
+
+.saved-popup.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1);
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+  position:fixed;
+
+  left:50%;
+  bottom:30px;
+
+  transform:translateX(-50%);
+
+  background:#665761;
+
+  color:white;
+
+  padding:10px 17px;
+
+  border-radius:12px;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.2s;
+
+  z-index:400;
+
+  font-size:13px;
+
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:480px){
+
+  .page{
+    padding:
+      14px
+      10px
+      80px;
+  }
+
+  .shop-name{
+    font-size:22px;
+  }
+
+  .banner-card{
+    border-radius:18px;
+  }
+
+  .vote-card{
+    padding:14px 9px;
+  }
+
+  /*
+    ฟันเฟืองบนมือถือยังคงขนาดเล็ก
+    ไม่ขยายกลับเป็น 56px
+  */
+
+  .admin-btn{
+    right:14px;
+    bottom:14px;
+
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+  }
+
+  .gear-icon{
+    width:23px;
+    height:23px;
+  }
+
+  .admin-tab{
+    font-size:11px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+  <!-- ===================================================
+       HEADER
+  ==================================================== -->
+
+  <header class="shop-header">
+
+    <div
+      class="shop-name"
+      id="shopName">
+
+      My Cute Shop ♡
+
+    </div>
+
+
+    <div
+      class="shop-description"
+      id="shopDescription">
+
+      ขอบคุณที่มารีวิวร้านของเรา ♡
+
+    </div>
+
+  </header>
+
+
+
+  <!-- ===================================================
+       BANNER
+  ==================================================== -->
+
+  <div
+    class="banner-card"
+    id="bannerCard">
+
+
+    <div
+      class="banner-empty"
+      id="bannerEmpty">
+
+      ♡ รูปแบนเนอร์ร้าน ♡
+
+    </div>
+
+
+    <img
+      id="bannerImage"
+      src=""
+      alt="แบนเนอร์ร้าน"
+      style="display:none;">
+
+  </div>
+
+
+
+  <!-- ===================================================
+       VOTES
+  ==================================================== -->
+
+  <div class="vote-grid">
+
+
+    <div class="vote-card">
+
+      <button
+        class="plus-btn"
+        type="button"
+        onclick="addPlus()">
+
+        +1
+
+      </button>
+
+
+      <div
+        class="vote-number"
+        id="plusVotes">
+
+        0
+
+      </div>
+
+    </div>
+
+
+
+    <div class="vote-card">
+
+      <button
+        class="minus-btn"
+        type="button"
+        onclick="openMinusModal()">
+
+        -1
+
+      </button>
+
+
+      <div
+        class="vote-number"
+        id="minusVotes">
+
+        0
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       RATING
+  ==================================================== -->
+
+  <div class="rating-card">
+
+
+    <div class="rating-title">
+
+      การจัดอันดับและความคิดเห็น
+
+    </div>
+
+
+    <div
+      class="rating-score"
+      id="averageRating">
+
+      0.0
+
+    </div>
+
+
+    <div
+      class="stars"
+      id="averageStars">
+
+      ☆☆☆☆☆
+
+    </div>
+
+
+    <div
+      class="rating-count"
+      id="ratingCount">
+
+      0 รีวิว
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       WRITE REVIEW
+  ==================================================== -->
+
+  <div class="write-review">
+
+
+    <div class="section-title">
+
+      เขียนรีวิว ♡
+
+    </div>
+
+
+    <div class="input-group">
+
+      <label>
+        ชื่อ
+      </label>
+
+
+      <input
+        id="customerName"
+        type="text"
+        placeholder="ใส่ชื่อของคุณ">
+
+    </div>
+
+
+
+    <div class="input-group">
+
+      <label>
+        ให้คะแนน
+      </label>
+
+
+      <select
+        id="customerRating">
+
+        <option value="5">
+          ★★★★★ 5 ดาว
+        </option>
+
+        <option value="4">
+          ★★★★☆ 4 ดาว
+        </option>
+
+        <option value="3">
+          ★★★☆☆ 3 ดาว
+        </option>
+
+        <option value="2">
+          ★★☆☆☆ 2 ดาว
+        </option>
+
+        <option value="1">
+          ★☆☆☆☆ 1 ดาว
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <div class="input-group">
+
+      <label>
+        ความคิดเห็น
+      </label>
+
+
+      <textarea
+        id="customerReview"
+        placeholder="เขียนความคิดเห็นของคุณ...">
+      </textarea>
+
+    </div>
+
+
+
+    <button
+      class="submit-btn"
+      type="button"
+      onclick="submitCustomerReview()">
+
+      ส่งรีวิว ♡
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       REVIEWS
+  ==================================================== -->
+
+  <div
+    id="reviewsContainer">
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN BUTTON
+===================================================== -->
+
+<button
+  class="admin-btn"
+  type="button"
+  onclick="openLogin()"
+  aria-label="ตั้งค่าแอดมิน">
+
+
+  <!-- ฟันเฟือง SVG มินิมอล ไม่ใช่อีโมจิ -->
+
+  <svg
+    class="gear-icon"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true">
+
+    <path
+      d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.4 7.4 0 0 0-1.69-.98L14.5 2.42A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.42L9.13 5.07c-.61.25-1.18.58-1.69.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .61.22l2.49-1c.51.4 1.08.73 1.69.98l.38 2.65A.49.49 0 0 0 10 22h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.18-.58 1.69-.98l2.49 1a.5.5 0 0 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z"/>
+
+  </svg>
+
+</button>
+
+
+
+<!-- =====================================================
+     MINUS MODAL
+===================================================== -->
+
+<div
+  class="modal"
+  id="minusModal">
+
+
+  <div class="modal-box">
+
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeModal('minusModal')">
+
+      ×
+
+    </button>
+
+
+    <div class="modal-title">
+
+      แจ้งปัญหา
+
+    </div>
+
+
+    <div class="minus-message">
+
+
+      <h3
+        id="minusTitle">
+
+        กรุณาส่งหลักฐาน
+
+      </h3>
+
+
+      <p
+        id="minusDescription">
+
+        แคปแชทและแจ้งปัญหาให้แอดมินตรวจสอบได้เลยนะคะ ♡
+
+      </p>
+
+
+      <br>
+
+
+      <button
+        class="minus-link-btn"
+        type="button"
+        id="minusLinkButton"
+        onclick="openMinusLink()">
+
+        เปิดลิงก์
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<div
+  class="modal"
+  id="loginModal">
+
+
+  <div class="modal-box">
+
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeModal('loginModal')">
+
+      ×
+
+    </button>
+
+
+    <div class="modal-title">
+
+      🔐 เข้าสู่ระบบแอดมิน
+
+    </div>
+
+
+    <div class="input-group">
+
+      <label>
+        รหัสผ่าน
+      </label>
+
+
+      <input
+        id="adminPasswordInput"
+        type="password"
+        placeholder="กรอกรหัสผ่าน"
+        autocomplete="off"
+        onkeydown="
+          if(event.key==='Enter')
+          loginAdmin()
+        ">
+
+    </div>
+
+
+    <button
+      class="save-btn"
+      type="button"
+      onclick="loginAdmin()">
+
+      เข้าสู่ระบบ
+
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN PANEL
+===================================================== -->
+
+<div
+  class="modal"
+  id="adminModal">
+
+
+  <div class="modal-box">
+
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeAdmin()">
+
+      ×
+
+    </button>
+
+
+    <div class="modal-title">
+
+      ⚙️ ตั้งค่าแอดมิน
+
+    </div>
+
+
+    <!-- ADMIN TABS -->
+
+    <div class="admin-tabs">
+
+
+      <button
+        class="admin-tab active"
+        type="button"
+        onclick="showAdminTab('shop',this)">
+
+        ร้าน
+
+      </button>
+
+
+      <button
+        class="admin-tab"
+        type="button"
+        onclick="showAdminTab('minus',this)">
+
+        -1
+
+      </button>
+
+
+      <button
+        class="admin-tab"
+        type="button"
+        onclick="showAdminTab('votes',this)">
+
+        คะแนน
+
+      </button>
+
+
+      <button
+        class="admin-tab"
+        type="button"
+        onclick="showAdminTab('reviews',this)">
+
+        รีวิว
+
+      </button>
+
+
+      <button
+        class="admin-tab"
+        type="button"
+        onclick="showAdminTab('colors',this)">
+
+        สี
+
+      </button>
+
+
+      <button
+        class="admin-tab"
+        type="button"
+        onclick="showAdminTab('password',this)">
+
+        รหัส
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SHOP
+    ================================================== -->
+
+    <div
+      class="admin-panel active"
+      id="panel-shop">
+
+
+      <div class="input-group">
+
+        <label>
+          ชื่อร้าน
+        </label>
+
+
+        <input
+          id="adminShopName"
+          type="text">
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          คำอธิบายร้าน
+        </label>
+
+
+        <textarea
+          id="adminShopDescription">
+        </textarea>
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          รูปแบนเนอร์จากมือถือ
+        </label>
+
+
+        <input
+          id="adminBannerFile"
+          type="file"
+          accept="image/*"
+          onchange="previewBannerFromPhone(event)">
+
+
+        <div
+          id="bannerPreview"
+          style="
+            margin-top:10px;
+            border-radius:14px;
+            overflow:hidden;
+            display:none;
+            border:1px solid var(--border);
+          ">
+
+
+          <img
+            id="bannerPreviewImage"
+            style="
+              width:100%;
+              max-height:220px;
+              object-fit:cover;
+              display:block;
+            "
+            alt="ตัวอย่างแบนเนอร์">
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="save-btn"
+        type="button"
+        onclick="saveGeneral()">
+
+        บันทึกข้อมูลร้าน
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MINUS
+    ================================================== -->
+
+    <div
+      class="admin-panel"
+      id="panel-minus">
+
+
+      <div class="input-group">
+
+        <label>
+          หัวข้อ Popup -1
+        </label>
+
+
+        <input
+          id="adminMinusTitle"
+          type="text">
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          ข้อความ Popup -1
+        </label>
+
+
+        <textarea
+          id="adminMinusDescription">
+        </textarea>
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          ข้อความปุ่ม
+        </label>
+
+
+        <input
+          id="adminMinusButton"
+          type="text">
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          ลิงก์ปุ่ม
+        </label>
+
+
+        <input
+          id="adminMinusLink"
+          type="url"
+          placeholder="https://...">
+
+      </div>
+
+
+      <button
+        class="save-btn"
+        type="button"
+        onclick="saveMinusSettings()">
+
+        บันทึก
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         VOTES
+    ================================================== -->
+
+    <div
+      class="admin-panel"
+      id="panel-votes">
+
+
+      <div class="input-group">
+
+        <label>
+          จำนวน +1
+        </label>
+
+
+        <input
+          id="adminPlusVotes"
+          type="number"
+          min="0">
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          จำนวน -1
+        </label>
+
+
+        <input
+          id="adminMinusVotes"
+          type="number"
+          min="0">
+
+      </div>
+
+
+      <button
+        class="save-btn"
+        type="button"
+        onclick="saveVotes()">
+
+        บันทึกคะแนน
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         REVIEWS
+    ================================================== -->
+
+    <div
+      class="admin-panel"
+      id="panel-reviews">
+
+
+      <div class="section-title">
+
+        จัดการรีวิว
+
+      </div>
+
+
+      <div
+        id="adminReviews">
+      </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         COLORS
+    ================================================== -->
+
+    <div
+      class="admin-panel"
+      id="panel-colors">
+
+
+      <div class="color-row">
+
+        <label>
+          พื้นหลัง
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorBg">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          พื้นการ์ด
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorCard">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สีตัวอักษร
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorText">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สีหลัก
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorMain">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สีหลักเข้ม
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorMainDark">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สีปุ่ม
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorButton">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สีตัวอักษรปุ่ม
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorButtonText">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สี +1
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorPlus">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สี -1
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorMinus">
+
+      </div>
+
+
+      <div class="color-row">
+
+        <label>
+          สีขอบ
+        </label>
+
+
+        <input
+          class="color-input"
+          type="color"
+          id="colorBorder">
+
+      </div>
+
+
+      <button
+        class="save-btn"
+        type="button"
+        onclick="saveColors()">
+
+        บันทึกสี
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PASSWORD
+    ================================================== -->
+
+    <div
+      class="admin-panel"
+      id="panel-password">
+
+
+      <div class="input-group">
+
+        <label>
+          รหัสผ่านใหม่
+        </label>
+
+
+        <input
+          id="newAdminPassword"
+          type="password"
+          placeholder="รหัสใหม่">
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          ยืนยันรหัสผ่าน
+        </label>
+
+
+        <input
+          id="confirmAdminPassword"
+          type="password"
+          placeholder="กรอกรหัสอีกครั้ง">
+
+      </div>
+
+
+      <button
+        class="save-btn"
+        type="button"
+        onclick="changeAdminPassword()">
+
+        เปลี่ยนรหัสผ่าน
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SAVED POPUP
+===================================================== -->
+
+<div
+  class="saved-popup"
+  id="savedPopup">
+
+  บันทึกข้อมูลแล้ว ♡
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const STORAGE_KEY =
+  "cuteShopReviewData";
+
+const ADMIN_SESSION_KEY =
+  "cuteShopAdminRemembered";
+
+
+/* =====================================================
+   DEFAULT DATA
+===================================================== */
+
+const DEFAULT_DATA = {
+
+  shopName:
+    "My Cute Shop ♡",
+
+  shopDescription:
+    "ขอบคุณที่มารีวิวร้านของเรา ♡",
+
+  banner:
+    "",
+
+  plusVotes:
+    0,
+
+  minusVotes:
+    0,
+
+  minusTitle:
+    "กรุณาส่งหลักฐาน",
+
+  minusDescription:
+    "แคปแชทและแจ้งปัญหาให้แอดมินตรวจสอบได้เลยนะคะ ♡",
+
+  minusButton:
+    "เปิดลิงก์",
+
+  minusLink:
+    "https://example.com",
+
+  adminPassword:
+    "1234",
+
+  colors:{
+    bg:"#fff7fb",
+    card:"#ffffff",
+    text:"#665761",
+    main:"#f49bc0",
+    mainDark:"#db82a8",
+    button:"#f5a0c2",
+    buttonText:"#ffffff",
+    plus:"#f49bc0",
+    minus:"#b8b8b8",
+    border:"#f4d8e4"
+  },
+
+  reviews:[]
+
+};
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+let data =
+  loadData();
+
+let selectedBannerImage =
+  null;
+
+
+function loadData(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+
+    if(!saved){
+
+      return JSON.parse(
+        JSON.stringify(
+          DEFAULT_DATA
+        )
+      );
+
+    }
+
+
+    const parsed =
+      JSON.parse(saved);
+
+
+    return {
+
+      ...DEFAULT_DATA,
+
+      ...parsed,
+
+      colors:{
+        ...DEFAULT_DATA.colors,
+        ...(parsed.colors || {})
+      },
+
+      reviews:
+        Array.isArray(
+          parsed.reviews
+        )
+        ? parsed.reviews
+        : []
+
+    };
+
+  }catch(error){
+
+    console.error(error);
+
+    return JSON.parse(
+      JSON.stringify(
+        DEFAULT_DATA
+      )
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVE DATA
+===================================================== */
+
+function saveData(){
+
+  try{
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(data)
+    );
+
+    return true;
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "บันทึกไม่สำเร็จ รูปอาจใหญ่เกินไป"
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =====================================================
+   COLORS
+===================================================== */
+
+function applyColors(){
+
+  const root =
+    document.documentElement;
+
+
+  root.style.setProperty(
+    "--bg",
+    data.colors.bg
+  );
+
+  root.style.setProperty(
+    "--card",
+    data.colors.card
+  );
+
+  root.style.setProperty(
+    "--text",
+    data.colors.text
+  );
+
+  root.style.setProperty(
+    "--main",
+    data.colors.main
+  );
+
+  root.style.setProperty(
+    "--main-dark",
+    data.colors.mainDark
+  );
+
+  root.style.setProperty(
+    "--button",
+    data.colors.button
+  );
+
+  root.style.setProperty(
+    "--button-text",
+    data.colors.buttonText
+  );
+
+  root.style.setProperty(
+    "--plus",
+    data.colors.plus
+  );
+
+  root.style.setProperty(
+    "--minus",
+    data.colors.minus
+  );
+
+  root.style.setProperty(
+    "--border",
+    data.colors.border
+  );
+
+}
+
+
+/* =====================================================
+   RENDER SHOP
+===================================================== */
+
+function renderShop(){
+
+  document.getElementById(
+    "shopName"
+  ).textContent =
+    data.shopName;
+
+
+  document.getElementById(
+    "shopDescription"
+  ).textContent =
+    data.shopDescription;
+
+
+  document.getElementById(
+    "plusVotes"
+  ).textContent =
+    data.plusVotes;
+
+
+  document.getElementById(
+    "minusVotes"
+  ).textContent =
+    data.minusVotes;
+
+
+  const image =
+    document.getElementById(
+      "bannerImage"
+    );
+
+
+  const empty =
+    document.getElementById(
+      "bannerEmpty"
+    );
+
+
+  if(data.banner){
+
+    image.src =
+      data.banner;
+
+    image.style.display =
+      "block";
+
+    empty.style.display =
+      "none";
+
+  }else{
+
+    image.src =
+      "";
+
+    image.style.display =
+      "none";
+
+    empty.style.display =
+      "flex";
+
+  }
+
+
+  document.getElementById(
+    "minusTitle"
+  ).textContent =
+    data.minusTitle;
+
+
+  document.getElementById(
+    "minusDescription"
+  ).textContent =
+    data.minusDescription;
+
+
+  document.getElementById(
+    "minusLinkButton"
+  ).textContent =
+    data.minusButton;
+
+
+  renderReviews();
+
+  updateRating();
+
+}
+
+
+/* =====================================================
+   PLUS
+===================================================== */
+
+function addPlus(){
+
+  data.plusVotes++;
+
+  saveData();
+
+  renderShop();
+
+  showToast(
+    "+1 แล้ว ♡"
+  );
+
+}
+
+
+/* =====================================================
+   MINUS
+===================================================== */
+
+function openMinusModal(){
+
+  document.getElementById(
+    "minusModal"
+  ).classList.add(
+    "show"
+  );
+
+}
+
+
+function openMinusLink(){
+
+  if(!data.minusLink){
+
+    showToast(
+      "ยังไม่ได้ตั้งค่าลิงก์"
+    );
+
+    return;
+
+  }
+
+
+  window.open(
+    data.minusLink,
+    "_blank"
+  );
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function closeModal(id){
+
+  document.getElementById(id)
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+/* =====================================================
+   ADMIN REMEMBER
+===================================================== */
+
+function isAdminRemembered(){
+
+  return (
+    localStorage.getItem(
+      ADMIN_SESSION_KEY
+    ) === "true"
+  );
+
+}
+
+
+function rememberAdmin(){
+
+  localStorage.setItem(
+    ADMIN_SESSION_KEY,
+    "true"
+  );
+
+}
+
+
+function forgetAdmin(){
+
+  localStorage.removeItem(
+    ADMIN_SESSION_KEY
+  );
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function openLogin(){
+
+  if(
+    isAdminRemembered()
+  ){
+
+    openAdmin();
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "loginModal"
+  ).classList.add(
+    "show"
+  );
+
+
+  setTimeout(()=>{
+
+    const input =
+      document.getElementById(
+        "adminPasswordInput"
+      );
+
+
+    if(input){
+
+      input.focus();
+
+    }
+
+  },100);
+
+}
+
+
+function loginAdmin(){
+
+  const input =
+    document.getElementById(
+      "adminPasswordInput"
+    );
+
+
+  const password =
+    input.value;
+
+
+  if(
+    password ===
+    data.adminPassword
+  ){
+
+    rememberAdmin();
+
+
+    input.value =
+      "";
+
+
+    closeModal(
+      "loginModal"
+    );
+
+
+    openAdmin();
+
+
+    showToast(
+      "เข้าสู่ระบบสำเร็จ ♡"
+    );
+
+  }else{
+
+    showToast(
+      "รหัสผ่านไม่ถูกต้อง"
+    );
+
+
+    input.value =
+      "";
+
+
+    input.focus();
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+function openAdmin(){
+
+  loadAdminFields();
+
+
+  document.getElementById(
+    "adminModal"
+  ).classList.add(
+    "show"
+  );
+
+}
+
+
+function closeAdmin(){
+
+  document.getElementById(
+    "adminModal"
+  ).classList.remove(
+    "show"
+  );
+
+}
+
+
+/* =====================================================
+   ADMIN TABS
+===================================================== */
+
+function showAdminTab(
+  name,
+  button
+){
+
+  document
+    .querySelectorAll(
+      ".admin-panel"
+    )
+    .forEach(panel=>{
+
+      panel.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(
+      ".admin-tab"
+    )
+    .forEach(tab=>{
+
+      tab.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  const panel =
+    document.getElementById(
+      "panel-" + name
+    );
+
+
+  if(panel){
+
+    panel.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(button){
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   BANNER UPLOAD
+===================================================== */
+
+function previewBannerFromPhone(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  if(
+    !file.type.startsWith(
+      "image/"
+    )
+  ){
+
+    showToast(
+      "กรุณาเลือกไฟล์รูปภาพ"
+    );
+
+
+    event.target.value =
+      "";
+
+
+    return;
+
+  }
+
+
+  resizeImage(
+    file,
+    1200,
+    0.82
+  )
+  .then(result=>{
+
+    selectedBannerImage =
+      result;
+
+
+    document.getElementById(
+      "bannerPreviewImage"
+    ).src =
+      result;
+
+
+    document.getElementById(
+      "bannerPreview"
+    ).style.display =
+      "block";
+
+  })
+  .catch(error=>{
+
+    console.error(error);
+
+    showToast(
+      "ไม่สามารถอ่านรูปได้"
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   IMAGE RESIZE
+===================================================== */
+
+function resizeImage(
+  file,
+  maxWidth=1200,
+  quality=0.82
+){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(event){
+
+          const img =
+            new Image();
+
+
+          img.onload =
+            function(){
+
+              const scale =
+                Math.min(
+                  1,
+                  maxWidth /
+                  img.width
+                );
+
+
+              const canvas =
+                document.createElement(
+                  "canvas"
+                );
+
+
+              canvas.width =
+                Math.round(
+                  img.width *
+                  scale
+                );
+
+
+              canvas.height =
+                Math.round(
+                  img.height *
+                  scale
+                );
+
+
+              const ctx =
+                canvas.getContext(
+                  "2d"
+                );
+
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+              );
+
+
+              resolve(
+                canvas.toDataURL(
+                  "image/jpeg",
+                  quality
+                )
+              );
+
+            };
+
+
+          img.onerror =
+            reject;
+
+
+          img.src =
+            event.target.result;
+
+        };
+
+
+      reader.onerror =
+        reject;
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   LOAD ADMIN FIELDS
+===================================================== */
+
+function loadAdminFields(){
+
+  document.getElementById(
+    "adminShopName"
+  ).value =
+    data.shopName;
+
+
+  document.getElementById(
+    "adminShopDescription"
+  ).value =
+    data.shopDescription;
+
+
+  document.getElementById(
+    "adminMinusTitle"
+  ).value =
+    data.minusTitle;
+
+
+  document.getElementById(
+    "adminMinusDescription"
+  ).value =
+    data.minusDescription;
+
+
+  document.getElementById(
+    "adminMinusButton"
+  ).value =
+    data.minusButton;
+
+
+  document.getElementById(
+    "adminMinusLink"
+  ).value =
+    data.minusLink;
+
+
+  document.getElementById(
+    "adminPlusVotes"
+  ).value =
+    data.plusVotes;
+
+
+  document.getElementById(
+    "adminMinusVotes"
+  ).value =
+    data.minusVotes;
+
+
+  const preview =
+    document.getElementById(
+      "bannerPreview"
+    );
+
+
+  const previewImage =
+    document.getElementById(
+      "bannerPreviewImage"
+    );
+
+
+  if(data.banner){
+
+    previewImage.src =
+      data.banner;
+
+    preview.style.display =
+      "block";
+
+  }else{
+
+    preview.style.display =
+      "none";
+
+  }
+
+
+  selectedBannerImage =
+    null;
+
+
+  const fileInput =
+    document.getElementById(
+      "adminBannerFile"
+    );
+
+
+  if(fileInput){
+
+    fileInput.value =
+      "";
+
+  }
+
+
+  document.getElementById(
+    "colorBg"
+  ).value =
+    data.colors.bg;
+
+
+  document.getElementById(
+    "colorCard"
+  ).value =
+    data.colors.card;
+
+
+  document.getElementById(
+    "colorText"
+  ).value =
+    data.colors.text;
+
+
+  document.getElementById(
+    "colorMain"
+  ).value =
+    data.colors.main;
+
+
+  document.getElementById(
+    "colorMainDark"
+  ).value =
+    data.colors.mainDark;
+
+
+  document.getElementById(
+    "colorButton"
+  ).value =
+    data.colors.button;
+
+
+  document.getElementById(
+    "colorButtonText"
+  ).value =
+    data.colors.buttonText;
+
+
+  document.getElementById(
+    "colorPlus"
+  ).value =
+    data.colors.plus;
+
+
+  document.getElementById(
+    "colorMinus"
+  ).value =
+    data.colors.minus;
+
+
+  document.getElementById(
+    "colorBorder"
+  ).value =
+    data.colors.border;
+
+
+  renderAdminReviews();
+
+}
+
+
+/* =====================================================
+   SAVE GENERAL
+===================================================== */
+
+function saveGeneral(){
+
+  data.shopName =
+    document.getElementById(
+      "adminShopName"
+    ).value.trim()
+    ||
+    DEFAULT_DATA.shopName;
+
+
+  data.shopDescription =
+    document.getElementById(
+      "adminShopDescription"
+    ).value.trim();
+
+
+  if(selectedBannerImage){
+
+    data.banner =
+      selectedBannerImage;
+
+  }
+
+
+  if(saveData()){
+
+    renderShop();
+
+
+    selectedBannerImage =
+      null;
+
+
+    const fileInput =
+      document.getElementById(
+        "adminBannerFile"
+      );
+
+
+    if(fileInput){
+
+      fileInput.value =
+        "";
+
+    }
+
+
+    showSavedPopup();
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVE MINUS
+===================================================== */
+
+function saveMinusSettings(){
+
+  data.minusTitle =
+    document.getElementById(
+      "adminMinusTitle"
+    ).value.trim();
+
+
+  data.minusDescription =
+    document.getElementById(
+      "adminMinusDescription"
+    ).value.trim();
+
+
+  data.minusButton =
+    document.getElementById(
+      "adminMinusButton"
+    ).value.trim()
+    ||
+    "เปิดลิงก์";
+
+
+  data.minusLink =
+    document.getElementById(
+      "adminMinusLink"
+    ).value.trim();
+
+
+  if(saveData()){
+
+    renderShop();
+
+    showSavedPopup();
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVE VOTES
+===================================================== */
+
+function saveVotes(){
+
+  const plus =
+    Number(
+      document.getElementById(
+        "adminPlusVotes"
+      ).value
+    );
+
+
+  const minus =
+    Number(
+      document.getElementById(
+        "adminMinusVotes"
+      ).value
+    );
+
+
+  data.plusVotes =
+    Math.max(
+      0,
+      plus
+    );
+
+
+  data.minusVotes =
+    Math.max(
+      0,
+      minus
+    );
+
+
+  if(saveData()){
+
+    renderShop();
+
+    showSavedPopup();
+
+  }
+
+}
+
+
+/* =====================================================
+   CUSTOMER REVIEW
+===================================================== */
+
+function submitCustomerReview(){
+
+  const name =
+    document.getElementById(
+      "customerName"
+    ).value.trim();
+
+
+  const rating =
+    Number(
+      document.getElementById(
+        "customerRating"
+      ).value
+    );
+
+
+  const text =
+    document.getElementById(
+      "customerReview"
+    ).value.trim();
+
+
+  if(!name){
+
+    showToast(
+      "กรุณาใส่ชื่อ"
+    );
+
+    return;
+
+  }
+
+
+  if(!text){
+
+    showToast(
+      "กรุณาเขียนความคิดเห็น"
+    );
+
+    return;
+
+  }
+
+
+  data.reviews.push({
+
+    id:
+      Date.now(),
+
+    name:
+      name,
+
+    rating:
+      rating,
+
+    text:
+      text,
+
+    createdAt:
+      new Date().toISOString()
+
+  });
+
+
+  if(saveData()){
+
+    document.getElementById(
+      "customerName"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "customerReview"
+    ).value =
+      "";
+
+
+    renderShop();
+
+
+    showToast(
+      "ส่งรีวิวแล้ว ♡"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   RENDER REVIEWS
+===================================================== */
+
+function renderReviews(){
+
+  const container =
+    document.getElementById(
+      "reviewsContainer"
+    );
+
+
+  if(
+    !data.reviews.length
+  ){
+
+    container.innerHTML = `
+
+      <div
+        class="review-card review-empty">
+
+        ยังไม่มีรีวิว ♡<br>
+
+        เป็นคนแรกที่มารีวิวร้านของเราได้นะ
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    data.reviews
+      .map(review=>{
+
+        const rating =
+          Number(
+            review.rating
+          );
+
+
+        const stars =
+          "★".repeat(
+            rating
+          )
+          +
+          "☆".repeat(
+            5-rating
+          );
+
+
+        return `
+
+          <div
+            class="review-card">
+
+
+            <div
+              class="review-top">
+
+
+              <div
+                class="review-name">
+
+                ${escapeHTML(
+                  review.name
+                )}
+
+              </div>
+
+
+              <div
+                class="review-stars">
+
+                ${stars}
+
+              </div>
+
+
+            </div>
+
+
+            <div
+              class="review-text">
+
+              ${escapeHTML(
+                review.text
+              )}
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* =====================================================
+   RATING
+===================================================== */
+
+function updateRating(){
+
+  const count =
+    data.reviews.length;
+
+
+  let average =
+    0;
+
+
+  if(count){
+
+    const total =
+      data.reviews.reduce(
+        (sum,review)=>
+          sum +
+          Number(
+            review.rating
+          ),
+        0
+      );
+
+
+    average =
+      total /
+      count;
+
+  }
+
+
+  document.getElementById(
+    "averageRating"
+  ).textContent =
+    average.toFixed(1);
+
+
+  document.getElementById(
+    "averageStars"
+  ).textContent =
+    makeStars(
+      average
+    );
+
+
+  document.getElementById(
+    "ratingCount"
+  ).textContent =
+    `${count} รีวิว`;
+
+}
+
+
+function makeStars(number){
+
+  const rounded =
+    Math.round(number);
+
+
+  return (
+    "★".repeat(
+      rounded
+    )
+    +
+    "☆".repeat(
+      5-rounded
+    )
+  );
+
+}
+
+
+/* =====================================================
+   ADMIN REVIEW LIST
+===================================================== */
+
+function renderAdminReviews(){
+
+  const container =
+    document.getElementById(
+      "adminReviews"
+    );
+
+
+  if(
+    !data.reviews.length
+  ){
+
+    container.innerHTML = `
+
+      <div class="review-empty">
+
+        ยังไม่มีรีวิว
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    data.reviews
+      .map(
+        (review,index)=>{
+
+          const rating =
+            Number(
+              review.rating
+            );
+
+
+          return `
+
+            <div
+              class="review-admin-card">
+
+
+              <b>
+
+                ${escapeHTML(
+                  review.name
+                )}
+
+              </b>
+
+
+              <div
+                class="review-stars">
+
+                ${"★".repeat(rating)}
+                ${"☆".repeat(5-rating)}
+
+              </div>
+
+
+              <div
+                style="
+                  margin-top:6px;
+                  line-height:1.5;
+                ">
+
+                ${escapeHTML(
+                  review.text
+                )}
+
+              </div>
+
+
+              <div
+                class="review-admin-actions">
+
+
+                <button
+                  class="small-btn"
+                  type="button"
+                  onclick="editReview(${index})">
+
+                  แก้ไข
+
+                </button>
+
+
+                <button
+                  class="danger-btn"
+                  type="button"
+                  onclick="deleteReview(${index})">
+
+                  ลบ
+
+                </button>
+
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   EDIT REVIEW
+===================================================== */
+
+function editReview(index){
+
+  const review =
+    data.reviews[index];
+
+
+  if(!review){
+
+    return;
+
+  }
+
+
+  const newName =
+    prompt(
+      "แก้ชื่อรีวิว",
+      review.name
+    );
+
+
+  if(
+    newName ===
+    null
+  ){
+
+    return;
+
+  }
+
+
+  const newRating =
+    prompt(
+      "แก้จำนวนดาว 1-5",
+      review.rating
+    );
+
+
+  if(
+    newRating ===
+    null
+  ){
+
+    return;
+
+  }
+
+
+  const rating =
+    Number(
+      newRating
+    );
+
+
+  if(
+    !Number.isInteger(
+      rating
+    )
+    ||
+    rating < 1
+    ||
+    rating > 5
+  ){
+
+    showToast(
+      "ดาวต้องเป็นเลข 1-5"
+    );
+
+    return;
+
+  }
+
+
+  const newText =
+    prompt(
+      "แก้คำรีวิว",
+      review.text
+    );
+
+
+  if(
+    newText ===
+    null
+  ){
+
+    return;
+
+  }
+
+
+  review.name =
+    newName.trim()
+    ||
+    review.name;
+
+
+  review.rating =
+    rating;
+
+
+  review.text =
+    newText.trim()
+    ||
+    review.text;
+
+
+  if(saveData()){
+
+    renderShop();
+
+    renderAdminReviews();
+
+    showSavedPopup();
+
+  }
+
+}
+
+
+/* =====================================================
+   DELETE REVIEW
+===================================================== */
+
+function deleteReview(index){
+
+  if(
+    !confirm(
+      "ต้องการลบรีวิวนี้ใช่ไหม?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  data.reviews.splice(
+    index,
+    1
+  );
+
+
+  if(saveData()){
+
+    renderShop();
+
+    renderAdminReviews();
+
+    showToast(
+      "ลบรีวิวแล้ว"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVE COLORS
+===================================================== */
+
+function saveColors(){
+
+  data.colors.bg =
+    document.getElementById(
+      "colorBg"
+    ).value;
+
+
+  data.colors.card =
+    document.getElementById(
+      "colorCard"
+    ).value;
+
+
+  data.colors.text =
+    document.getElementById(
+      "colorText"
+    ).value;
+
+
+  data.colors.main =
+    document.getElementById(
+      "colorMain"
+    ).value;
+
+
+  data.colors.mainDark =
+    document.getElementById(
+      "colorMainDark"
+    ).value;
+
+
+  data.colors.button =
+    document.getElementById(
+      "colorButton"
+    ).value;
+
+
+  data.colors.buttonText =
+    document.getElementById(
+      "colorButtonText"
+    ).value;
+
+
+  data.colors.plus =
+    document.getElementById(
+      "colorPlus"
+    ).value;
+
+
+  data.colors.minus =
+    document.getElementById(
+      "colorMinus"
+    ).value;
+
+
+  data.colors.border =
+    document.getElementById(
+      "colorBorder"
+    ).value;
+
+
+  if(saveData()){
+
+    applyColors();
+
+    showSavedPopup();
+
+  }
+
+}
+
+
+/* =====================================================
+   CHANGE PASSWORD
+===================================================== */
+
+function changeAdminPassword(){
+
+  const newPassword =
+    document.getElementById(
+      "newAdminPassword"
+    ).value;
+
+
+  const confirmPassword =
+    document.getElementById(
+      "confirmAdminPassword"
+    ).value;
+
+
+  if(!newPassword){
+
+    showToast(
+      "กรุณาใส่รหัสใหม่"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    newPassword.length < 4
+  ){
+
+    showToast(
+      "รหัสผ่านต้องมีอย่างน้อย 4 ตัว"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    newPassword !==
+    confirmPassword
+  ){
+
+    showToast(
+      "รหัสผ่านไม่ตรงกัน"
+    );
+
+    return;
+
+  }
+
+
+  data.adminPassword =
+    newPassword;
+
+
+  if(saveData()){
+
+    document.getElementById(
+      "newAdminPassword"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "confirmAdminPassword"
+    ).value =
+      "";
+
+
+    showSavedPopup();
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVED POPUP
+===================================================== */
+
+let savedPopupTimer =
+  null;
+
+
+function showSavedPopup(){
+
+  const popup =
+    document.getElementById(
+      "savedPopup"
+    );
+
+
+  popup.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    savedPopupTimer
+  );
+
+
+  savedPopupTimer =
+    setTimeout(()=>{
+
+      popup.classList.remove(
+        "show"
+      );
+
+    },1500);
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer =
+  null;
+
+
+function showToast(
+  message
+){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
+
+  toastTimer =
+    setTimeout(()=>{
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },1800);
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+  return String(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   CLICK OUTSIDE MODAL
+===================================================== */
+
+document
+  .querySelectorAll(
+    ".modal"
+  )
+  .forEach(modal=>{
+
+    modal.addEventListener(
+      "click",
+      function(event){
+
+        if(
+          event.target ===
+          modal
+        ){
+
+          modal.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      document
+        .querySelectorAll(
+          ".modal"
+        )
+        .forEach(modal=>{
+
+          modal.classList.remove(
+            "show"
+          );
+
+        });
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initialize(){
+
+  applyColors();
+
+  renderShop();
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+initialize();
+
+</script>
+
+</body>
+</html>
