@@ -37,17 +37,17 @@
             animation: gentle-pulse 1.5s infinite ease-in-out;
         }
 
-        /* Falling hearts and stars animation (falls down ~55% and fades out) */
+        /* Falling custom symbols animation (falls down ~55% and fades out) */
         @keyframes fall {
             0% {
                 transform: translateY(-20px) rotate(0deg);
                 opacity: 0;
             }
             15% {
-                opacity: 0.6;
+                opacity: 0.7;
             }
             45% {
-                opacity: 0.6;
+                opacity: 0.7;
             }
             55% {
                 transform: translateY(55vh) rotate(180deg);
@@ -77,7 +77,7 @@
     <!-- Main Container Card -->
     <div id="main-card" class="relative z-10 w-full max-w-[430px] min-h-screen sm:min-h-0 sm:my-auto bg-white sm:rounded-[45px] shadow-[0_20px_50px_rgba(180,160,150,0.25)] flex flex-col overflow-y-auto sm:border-[6px] sm:border-white transition-colors duration-500 overflow-hidden">
         
-        <!-- Falling Hearts & Stars Container (Only 2-3 items) -->
+        <!-- Falling Particles Container -->
         <div id="particles-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
 
         <div class="absolute top-4 right-4 z-50 flex items-center space-x-2">
@@ -197,12 +197,12 @@
                 </div>
             </div>
 
-            <!-- Floating Contact Button -->
+            <!-- Floating Contact Button (Vector Heart Icon) -->
             <div class="absolute bottom-6 right-6 z-30">
                 <button onclick="toggleContactModal()" 
                         class="w-14 h-14 rounded-full bg-[#fcf4f1] border-2 border-[#f0ded8] shadow-[0_8px_25px_rgba(180,150,140,0.35)] flex items-center justify-center text-[#9c8278] hover:scale-105 active:scale-95 transition focus:outline-none" title="ติดต่อเรา">
-                    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 10c0-1.1-.9-2-2-2-1.1 0-2 .9-2 2 0 .4.1.7.3 1-.8.6-2 .9-3.3.9-1.3 0-2.5-.3-3.3-.9.2-.3.3-.6.3-1 0-1.1-.9-2-2-2s-2 .9-2 2c0 1.5.6 2.8 1.6 3.8-.9 1-1.6 2.4-1.6 4.2 0 2.2 1.8 4 4 4h6c2.2 0 4-1.8 4-4 0-1.8-.7-3.2-1.6-4.2 1-.9 1.6-2.3 1.6-3.8zM9 18H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
                 </button>
             </div>
@@ -295,6 +295,20 @@
                     <button onclick="applyCustomColors()" 
                             class="w-full bg-[#7d6960] text-white rounded-lg py-2 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
                         ใช้งานสีที่ปรับแต่ง
+                    </button>
+                </div>
+
+                <!-- Falling Symbols Manager -->
+                <div class="bg-[#fcf9f7] p-4 rounded-2xl border border-[#f0e4dc] shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-[#7d6960]">✨ จัดการอักษรพิเศษ/ไอคอนโปรยปราย</h3>
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ใส่อักษรพิเศษ (คั่นด้วยจุลภาค เช่น ♡, ✧, ⋆, ❀, ☾)</label>
+                        <input type="text" id="admin-particles-input" value="♡, ✧, ⋆, ❀, ☾" 
+                               class="w-full bg-white border border-[#f0e4dc] rounded-lg py-2 px-3 text-xs text-[#7d6960] focus:outline-none focus:border-[#d6c4bc]">
+                    </div>
+                    <button onclick="saveParticleSettings()" 
+                            class="w-full bg-[#7d6960] text-white rounded-lg py-2 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
+                        บันทึกอักษรโปรยปราย
                     </button>
                 </div>
 
@@ -448,20 +462,29 @@
     </div>
 
     <script>
-        // Generate only 2-3 subtle falling particles
+        // Generate falling particles from custom symbols
         function initParticles() {
             const container = document.getElementById('particles-container');
-            const particleSymbols = ['💖', '✨', '🤍', '⭐', '🌸'];
-            const particleCount = 3; // จำกัดแค่ 3 ชิ้น สบายตา
+            container.innerHTML = '';
+
+            const savedSymbols = localStorage.getItem('cute_shop_particles');
+            const symbolsStr = savedSymbols ? savedSymbols : '♡, ✧, ⋆, ❀, ☾';
+            
+            if (savedSymbols) {
+                document.getElementById('admin-particles-input').value = savedSymbols;
+            }
+
+            const particleSymbols = symbolsStr.split(',').map(s => s.trim()).filter(Boolean);
+            const particleCount = 3;
 
             for (let i = 0; i < particleCount; i++) {
                 const el = document.createElement('div');
                 el.className = 'particle';
                 el.innerText = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
                 
-                const leftPos = 15 + (i * 30) + (Math.random() * 10); // กระจายซ้าย ขวา กลาง
+                const leftPos = 15 + (i * 30) + (Math.random() * 10);
                 const duration = 7 + Math.random() * 4;
-                const delay = i * 2.5; // ทยอยตกลงมาทีละตัว
+                const delay = i * 2.5;
                 const size = 14 + Math.random() * 6;
 
                 el.style.left = `${leftPos}%`;
@@ -473,6 +496,17 @@
             }
         }
         initParticles();
+
+        function saveParticleSettings() {
+            const inputVal = document.getElementById('admin-particles-input').value.trim();
+            if (!inputVal) {
+                alert('กรุณากรอกสัญลักษณ์อย่างน้อย 1 ตัว');
+                return;
+            }
+            localStorage.setItem('cute_shop_particles', inputVal);
+            initParticles();
+            alert('บันทึกอักษรโปรยปรายเรียบร้อยแล้วค่ะ ✨');
+        }
 
         let currentRating = 5;
         let uploadedPhotoUrl = null;
