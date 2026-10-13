@@ -3,1074 +3,1026 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review & Contact</title>
+    <title>Cute Shop Review & Admin Panel</title>
+    <!-- Tailwind CSS for modern responsive utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for cute rounded font style -->
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f3e5f5 100%);
-            --card-bg: #ffffff;
-            --text-main: #886f6f;
-            --text-sub: #b09e9e;
-            --accent-color: #d4a5a5;
-            --border-color: #f0e6e6;
-            --shadow-color: rgba(200, 160, 160, 0.15);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'M PLUS Rounded 1c', sans-serif;
-        }
-
         body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px 10px;
-            color: var(--text-main);
+            font-family: 'M PLUS Rounded 1c', sans-serif;
             overflow-x: hidden;
-            position: relative;
+        }
+        /* Custom scrollbar for clean appearance */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--theme-scrollbar, #e2d4cb);
+            border-radius: 10px;
+        }
+        /* Modal backdrop transition */
+        .modal-fade {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        /* Pulse animation for active music button */
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .music-playing {
+            animation: gentle-pulse 1.5s infinite ease-in-out;
         }
 
-        /* Falling Hearts & Stars Animation */
-        .falling-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .falling-item {
-            position: absolute;
-            top: -10%;
-            user-select: none;
-            animation: fall linear infinite;
-            opacity: 0.7;
-        }
-
+        /* Falling hearts and stars animation over the card */
         @keyframes fall {
             0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
-                opacity: 0.8;
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.7;
+            }
+            85% {
+                opacity: 0.7;
             }
             100% {
-                transform: translateY(110vh) translateX(50px) rotate(360deg);
-                opacity: 0.2;
+                transform: translateY(105%) rotate(360deg);
+                opacity: 0;
             }
         }
-
-        /* Top Right Buttons */
-        .top-controls {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
-
-        .icon-btn {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.2s, background 0.2s;
-            font-size: 18px;
-            color: var(--text-main);
-        }
-
-        .icon-btn:hover {
-            transform: scale(1.1);
-            background: #fff;
-        }
-
-        /* Main Container Card */
-        .phone-container {
-            width: 100%;
-            max-width: 420px;
-            background: var(--card-bg);
-            border-radius: 35px;
-            box-shadow: 0 15px 35px var(--shadow-color);
-            padding: 15px;
-            position: relative;
-            z-index: 10;
-            border: 4px solid rgba(255, 255, 255, 0.8);
-            margin-bottom: 50px;
-        }
-
-        /* Banner Cover */
-        .banner-box {
-            width: 100%;
-            height: 170px;
-            border-radius: 25px;
-            overflow: hidden;
-            border: 2px solid #fdeef2;
-            position: relative;
-            background: #fdf5f7;
-        }
-
-        .banner-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Profile Section */
-        .profile-section {
-            text-align: center;
-            margin-top: -45px;
-            position: relative;
-        }
-
-        .avatar-box {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 4px solid #ffffff;
-            overflow: hidden;
-            margin: 0 auto;
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .avatar-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .shop-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-top: 8px;
-        }
-
-        .shop-sub {
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-top: 2px;
-        }
-
-        /* Stats Card */
-        .stats-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 15px;
-            margin: 20px 0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-        }
-
-        .stat-value {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-sub);
-            margin-top: 2px;
-        }
-
-        .stat-divider {
-            width: 1px;
-            height: 30px;
-            background: var(--border-color);
-        }
-
-        .star-icon {
-            color: #d4a5a5;
-            display: inline-block;
-        }
-
-        /* Review Form Box */
-        .review-form-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
-            padding: 18px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 18px;
-            border-radius: 25px;
-            border: 1px solid var(--border-color);
-            background: #faf6f6;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            border-color: var(--accent-color);
-        }
-
-        .star-picker {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .star-picker span {
-            color: #ddd;
-            transition: color 0.2s;
-        }
-
-        .star-picker span.active {
-            color: #fbc02d;
-        }
-
-        .form-row-file {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #faf6f6;
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
-            padding: 8px 15px;
-        }
-
-        .cam-btn {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .file-name-display {
-            font-size: 13px;
-            color: var(--text-sub);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #d4a5a5 0%, #c28e8e 100%);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(212, 165, 165, 0.3);
-            transition: opacity 0.2s;
-            text-align: center;
-        }
-
-        .submit-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Review List */
-        .reviews-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .review-card {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
-        }
-
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .review-author {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text-main);
-        }
-
-        .review-stars {
-            color: #fbc02d;
-            font-size: 13px;
-        }
-
-        .review-text {
-            font-size: 13px;
-            color: var(--text-sub);
-            line-height: 1.4;
-            word-break: break-all;
-        }
-
-        .review-img {
-            margin-top: 10px;
-            width: 100%;
-            max-height: 180px;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-
-        /* Floating Cat Contact Button & Popup */
-        .floating-contact-wrapper {
-            position: fixed;
-            bottom: 25px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: flex-end;
-            gap: 10px;
-        }
-
-        .cat-btn {
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: 2px solid #fce4ec;
-            transition: transform 0.2s;
-            font-size: 26px;
-        }
-
-        .cat-btn:hover {
-            transform: scale(1.08);
-        }
-
-        .contact-popup {
-            background: #fff;
-            border-radius: 20px;
-            padding: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 180px;
-            opacity: 0;
-            transform: translateY(10px) scale(0.95);
+        .particle {
+            position: absolute;
+            top: -30px;
             pointer-events: none;
-            transition: all 0.25s ease;
+            animation: fall linear infinite;
+            z-index: 40; /* ให้อยู่เหนือการ์ดและคอนเทนต์ */
         }
-
-        .contact-popup.show {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 13px;
-            font-weight: 500;
-            background: #faf6f6;
-            transition: background 0.2s;
-        }
-
-        .contact-link:hover {
-            background: #f0e6e6;
-        }
-
-        /* Modal Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(3px);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
-
-        .modal-card {
-            background: #fff;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 25px;
-            padding: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            text-align: center;
-        }
-
-        .modal-close {
-            background: #eee;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            float: right;
-            margin-top: -5px;
-        }
-
-        .admin-section {
-            margin-bottom: 15px;
-        }
-
-        .admin-section label {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-sub);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .admin-review-item {
-            background: #faf6f6;
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 5px;
-        }
-
-        .mini-btn {
-            padding: 5px 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-edit { background: #e3f2fd; color: #1976d2; }
-        .btn-delete { background: #ffebee; color: #c62828; }
-        .btn-save { background: #e8f5e9; color: #2e7d32; }
-
     </style>
 </head>
-<body>
+<body id="page-body" class="min-h-screen bg-[#f3ece4] flex items-center justify-center p-0 sm:p-6 overflow-y-auto relative" style="background-color: var(--theme-bg, #f3ece4);">
 
-    <!-- Falling Container -->
-    <div class="falling-container" id="fallingContainer"></div>
-
-    <!-- Top Right Controls -->
-    <div class="top-controls">
-        <button class="icon-btn" id="musicBtn" title="เปิด/ปิดเพลง">🎵</button>
-        <button class="icon-btn" id="settingsBtn" title="ตั้งค่าแอดมิน">⚙️</button>
+    <div class="fixed inset-0 z-0 overflow-hidden opacity-90 pointer-events-none">
+        <div id="bg-blur-1" class="absolute -top-20 -left-20 w-96 h-96 bg-[#eadcd3] rounded-full blur-3xl transition-colors duration-500" style="background-color: var(--theme-blur1, #eadcd3);"></div>
+        <div id="bg-blur-2" class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#ebd8cc] rounded-full blur-3xl transition-colors duration-500" style="background-color: var(--theme-blur2, #ebd8cc);"></div>
     </div>
 
-    <!-- Main Card View -->
-    <div class="phone-container">
-        <!-- Banner Cover -->
-        <div class="banner-box">
-            <img id="displayBanner" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" alt="Banner">
+    <!-- Main Container Card (Relative เพื่อให้พาร์ทิเคิลอ้างอิงตำแหน่งตกลงมาบนการ์ดนี้ได้) -->
+    <div id="main-card" class="relative z-10 w-full max-w-[430px] min-h-screen sm:min-h-0 sm:my-auto bg-white sm:rounded-[45px] shadow-[0_20px_50px_rgba(180,160,150,0.25)] flex flex-col overflow-y-auto sm:border-[6px] sm:border-white transition-colors duration-500 overflow-hidden">
+        
+        <!-- Falling Hearts & Stars Container (อยู่บนการ์ดโดยเฉพาะ) -->
+        <div id="particles-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+        <div class="absolute top-4 right-4 z-50 flex items-center space-x-2">
+            <!-- Music Toggle Button -->
+            <button id="music-toggle-btn" onclick="toggleBackgroundMusic()" 
+                    class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 border border-black/5 flex items-center justify-center text-[#9c8278]/70 hover:text-[#9c8278] transition focus:outline-none" title="เปิด/ปิดเพลงประกอบ">
+                <!-- Music Note SVG -->
+                <svg id="music-icon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                </svg>
+            </button>
+
+            <!-- Admin Gear Button -->
+            <button onclick="handleAdminAccess()" 
+                    class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 border border-black/5 flex items-center justify-center text-[#9c8278]/70 hover:text-[#9c8278] transition focus:outline-none" title="Admin Panel">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </button>
         </div>
 
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="avatar-box">
-                <img id="displayAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar">
-            </div>
-            <div class="shop-name" id="displayShopName">ชื่อร้าน</div>
-            <div class="shop-sub" id="displayShopSub">thx for review</div>
-        </div>
-
-        <!-- Stats Card -->
-        <div class="stats-card">
-            <div class="stat-item">
-                <div class="stat-value" id="statReviewsCount">0</div>
-                <div class="stat-label">reviews</div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <div class="stat-value"><span class="star-icon">★</span> <span id="statRatingVal">0.0</span></div>
-                <div class="stat-label">rating</div>
-            </div>
-        </div>
-
-        <!-- Review Form -->
-        <div class="review-form-card">
-            <input type="text" id="inputName" class="form-input" placeholder="ชื่อของคุณ...">
-            <div class="star-picker" id="starPicker">
-                <span data-value="1">★</span>
-                <span data-value="2">★</span>
-                <span data-value="3">★</span>
-                <span data-value="4">★</span>
-                <span data-value="5">★</span>
-            </div>
-            <div class="form-row-file">
-                <label class="cam-btn" for="inputPhotoFile">📷</label>
-                <input type="file" id="inputPhotoFile" accept="image/*" style="display: none;">
-                <span class="file-name-display" id="fileNameDisplay">ยังไม่ได้เลือกรูปภาพ</span>
-            </div>
-            <textarea id="inputText" class="form-input" rows="2" placeholder="พิมพ์รีวิวของคุณที่นี่..."></textarea>
-            <button class="submit-btn" id="submitReviewBtn">ส่ง</button>
-        </div>
-
-        <!-- Reviews List -->
-        <div class="reviews-section" id="reviewsListContainer">
-            <!-- Dynamic Reviews Here -->
-        </div>
-    </div>
-
-    <!-- Floating Contact Button & Popup -->
-    <div class="floating-contact-wrapper">
-        <div class="contact-popup" id="contactPopup">
-            <a href="https://line.me" target="_blank" class="contact-link" id="linkLine">
-                <span style="color:#00B900;">💬</span> Line Official
-            </a>
-            <a href="https://instagram.com" target="_blank" class="contact-link" id="linkIg">
-                <span style="color:#E1306C;">📷</span> Instagram
-            </a>
-            <a href="https://facebook.com" target="_blank" class="contact-link" id="linkFb">
-                <span style="color:#1877F2;">📘</span> Facebook
-            </a>
-        </div>
-        <div class="cat-btn" id="catBtn" title="ติดต่อเรา">🐱</div>
-    </div>
-
-    <!-- Admin Modal -->
-    <div class="modal-overlay" id="adminModal">
-        <div class="modal-card">
-            <button class="modal-close" id="closeModalBtn">×</button>
-            <div class="modal-title" id="modalTitle">⚙️ จัดการระบบแอดมิน</div>
+        <!-- ==================== CUSTOMER VIEW ==================== -->
+        <div id="customer-view" class="flex flex-col flex-1">
             
-            <div id="loginSection">
-                <div class="admin-section">
-                    <label>รหัสผ่านแอดมิน (ค่าเริ่มต้น: 1234)</label>
-                    <input type="password" id="adminPassInput" class="form-input" placeholder="กรอกรหัสผ่าน...">
+            <div class="w-full px-4 pt-4 flex-shrink-0">
+                <div class="w-full h-44 sm:h-48 rounded-[28px] overflow-hidden border-[1.5px] border-[#fceee9] bg-[#fffaf8] relative shadow-sm">
+                    <img id="display-banner" src="https://placehold.co/600x250/fdf8f5/b59384?text=Cute+Shop+Banner" 
+                         alt="Cover Banner" 
+                         class="w-full h-full object-cover">
                 </div>
-                <div style="margin-bottom:12px; display:flex; align-items:center; gap:8px; font-size:13px;">
-                    <input type="checkbox" id="rememberMeCheck" checked> จดจำการเข้าสู่ระบบในเครื่องนี้
-                </div>
-                <button class="submit-btn" id="loginBtn" style="width:100%;">เข้าสู่ระบบ</button>
             </div>
 
-            <div id="dashboardSection" style="display:none;">
-                <div class="admin-section">
-                    <label>ธีมสีสำเร็จรูป</label>
-                    <div style="display:flex; gap:8px; margin-bottom:10px;">
-                        <button class="submit-btn" id="presetPink" style="padding:6px 12px; font-size:13px;">ชมพูพาสเทล</button>
-                        <button class="submit-btn" id="presetCream" style="padding:6px 12px; font-size:13px; background:linear-gradient(135deg, #f5ebe0 0%, #e3d5ca 100%); color:#5c4033;">ครีมมินิมอล</button>
+            <!-- Profile Picture Area -->
+            <div class="relative flex justify-center -mt-12 z-20 flex-shrink-0">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-white shadow-[0_8px_20px_rgba(200,180,170,0.3)]">
+                    <div class="w-full h-full rounded-full overflow-hidden bg-[#fceee9] border border-[#f3d9d0] flex items-center justify-center relative">
+                        <img id="display-avatar" src="https://placehold.co/200x200/fbebe8/8c6d62?text=%F0%9F%90%B0" 
+                             alt="Profile" 
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop Name & Subtitle -->
+            <div class="text-center mt-3 px-4 z-20 flex-shrink-0">
+                <h1 id="display-shop-name" class="text-xl sm:text-2xl font-bold text-[#7d6960] tracking-wide" style="color: var(--theme-text-title, #7d6960);">ชื่อร้าน</h1>
+                <p id="display-shop-subtitle" class="text-xs sm:text-sm text-[#b39e94] mt-0.5 tracking-wider font-medium" style="color: var(--theme-text-sub, #b39e94);">thx for review</p>
+            </div>
+
+            <div class="px-6 mt-4 z-20 flex-shrink-0">
+                <div class="w-full bg-[#fcf9f7] border border-[#f2eae4] rounded-2xl py-3 px-4 shadow-[0_4px_15px_rgba(200,180,170,0.12)] flex items-center justify-around" style="background-color: var(--theme-card-bg, #fcf9f7);">
+                    <div class="flex-1 text-center">
+                        <div id="stat-review-count" class="text-xl sm:text-2xl font-bold text-[#7d6960] tracking-tight" style="color: var(--theme-text-title, #7d6960);">0</div>
+                        <div class="text-[11px] sm:text-xs text-[#b39e94] font-medium tracking-wide mt-0.5" style="color: var(--theme-text-sub, #b39e94);">reviews</div>
+                    </div>
+
+                    <div class="w-[1px] h-8 bg-[#e8ded5]"></div>
+
+                    <div class="flex-1 text-center flex items-center justify-center space-x-1.5">
+                        <div>
+                            <div class="text-xl sm:text-2xl font-bold text-[#7d6960] tracking-tight flex items-center justify-center space-x-1" style="color: var(--theme-text-title, #7d6960);">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#8a756b] fill-current inline-block -mt-0.5" viewBox="0 0 24 24" style="color: var(--theme-accent, #8a756b);">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <span id="stat-rating-score">0.0</span>
+                            </div>
+                            <div class="text-[11px] sm:text-xs text-[#b39e94] font-medium tracking-wide mt-0.5" style="color: var(--theme-text-sub, #b39e94);">rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 mt-4 z-20 flex-shrink-0">
+                <div class="w-full bg-[#fcf9f7] border border-[#f2eae4] rounded-2xl p-4 shadow-[0_4px_15px_rgba(200,180,170,0.12)] space-y-3" style="background-color: var(--theme-card-bg, #fcf9f7);">
+                    <div>
+                        <input type="text" id="reviewer-name" placeholder="ชื่อของคุณ..." 
+                               class="w-full bg-[#fffcf9] border border-[#f0e4dc] rounded-full py-2.5 px-4 text-xs text-[#7d6960] placeholder-[#c8b7ae] focus:outline-none focus:border-[#d6c4bc] shadow-inner transition" style="color: var(--theme-text-title, #7d6960);">
+                    </div>
+
+                    <div class="bg-[#fffcf9] border border-[#f0e4dc] rounded-full py-2 px-4 flex items-center justify-center space-x-2 shadow-inner">
+                        <div id="star-rating-container" class="flex space-x-1.5 cursor-pointer">
+                            <svg data-value="1" class="w-5 h-5 text-[#e8b84d] transition star-icon fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg data-value="2" class="w-5 h-5 text-[#e8b84d] transition star-icon fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg data-value="3" class="w-5 h-5 text-[#e8b84d] transition star-icon fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg data-value="4" class="w-5 h-5 text-[#e8b84d] transition star-icon fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg data-value="5" class="w-5 h-5 text-[#e8b84d] transition star-icon fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <label for="review-photo-input" class="w-10 h-10 rounded-full bg-[#fffcf9] border border-[#f0e4dc] flex items-center justify-center cursor-pointer text-[#a39087] hover:bg-[#f7efe9] transition shadow-sm flex-shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                <circle cx="12" cy="13" r="3"></circle>
+                            </svg>
+                        </label>
+                        <input type="file" id="review-photo-input" accept="image/*" class="hidden">
+                        
+                        <input type="text" id="review-text" placeholder="พิมพ์รีวิวของคุณที่นี่..." 
+                               class="flex-1 bg-[#fffcf9] border border-[#f0e4dc] rounded-full py-2.5 px-4 text-xs text-[#7d6960] placeholder-[#c8b7ae] focus:outline-none focus:border-[#d6c4bc] shadow-inner transition" style="color: var(--theme-text-title, #7d6960);">
+                    </div>
+
+                    <div>
+                        <button onclick="submitReview()" 
+                                class="w-full bg-gradient-to-b from-[#ffffff] to-[#f4ebe6] border border-[#e8d8d0] rounded-full py-2.5 text-xs font-bold text-[#7d6960] shadow-[0_4px_10px_rgba(200,180,170,0.2)] hover:from-[#ffffff] hover:to-[#ebdcd3] active:scale-[0.99] transition" style="color: var(--theme-text-title, #7d6960);">
+                            ส่ง
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full px-6 py-4 flex-1 mt-2 mb-16">
+                <div class="text-xs font-bold text-[#b39e94] mb-3 px-1 tracking-wide" style="color: var(--theme-text-sub, #b39e94);">ความคิดเห็นทั้งหมด</div>
+                <div id="reviews-container" class="space-y-4">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Floating Contact Button -->
+            <div class="absolute bottom-6 right-6 z-30">
+                <button onclick="toggleContactModal()" 
+                        class="w-14 h-14 rounded-full bg-[#fcf4f1] border-2 border-[#f0ded8] shadow-[0_8px_25px_rgba(180,150,140,0.35)] flex items-center justify-center text-[#9c8278] hover:scale-105 active:scale-95 transition focus:outline-none" title="ติดต่อเรา">
+                    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 10c0-1.1-.9-2-2-2-1.1 0-2 .9-2 2 0 .4.1.7.3 1-.8.6-2 .9-3.3.9-1.3 0-2.5-.3-3.3-.9.2-.3.3-.6.3-1 0-1.1-.9-2-2-2s-2 .9-2 2c0 1.5.6 2.8 1.6 3.8-.9 1-1.6 2.4-1.6 4.2 0 2.2 1.8 4 4 4h6c2.2 0 4-1.8 4-4 0-1.8-.7-3.2-1.6-4.2 1-.9 1.6-2.3 1.6-3.8zM9 18H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== ADMIN LOGIN MODAL ==================== -->
+        <div id="admin-login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs opacity-0 pointer-events-none modal-fade p-4">
+            <div class="w-full max-w-[340px] bg-white rounded-[32px] p-6 shadow-[0_15px_40px_rgba(150,130,120,0.25)] border border-[#f5ede7] relative transform scale-95 transition-transform duration-300">
+                <button onclick="closeAdminLogin()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f7efe9] text-[#9c8278] flex items-center justify-center hover:bg-[#ebdcd3] transition text-sm font-bold">✕</button>
+
+                <div class="text-center mb-5 pt-2">
+                    <h3 class="text-base font-bold text-[#7d6960]">🔐 เข้าสู่ระบบแอดมิน</h3>
+                    <p class="text-[11px] text-[#b39e94] mt-0.5">กรุณากรอกรหัสผ่านเพื่อจัดการร้านค้า</p>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <input type="password" id="admin-password-input" placeholder="รหัสผ่านแอดมิน (ค่าเดิม: 1234)" 
+                               class="w-full bg-[#fffcf9] border border-[#f0e4dc] rounded-full py-2.5 px-4 text-xs text-[#7d6960] placeholder-[#c8b7ae] focus:outline-none focus:border-[#d6c4bc] shadow-inner transition">
+                        <p id="login-error-msg" class="text-[10px] text-red-400 text-center mt-1.5 hidden">รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</p>
+                    </div>
+
+                    <div class="flex items-center space-x-2 px-1">
+                        <input type="checkbox" id="remember-me-checkbox" class="w-4 h-4 accent-[#9c8278] rounded cursor-pointer">
+                        <label for="remember-me-checkbox" class="text-xs text-[#8a756b] cursor-pointer select-none">จำรหัสผ่านในเครื่องนี้ (Stay logged in)</label>
+                    </div>
+
+                    <div>
+                        <button onclick="verifyAdminPassword()" 
+                                class="w-full bg-[#7d6960] text-white rounded-full py-2.5 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
+                            เข้าสู่ระบบ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ADMIN VIEW ==================== -->
+        <div id="admin-view" class="hidden flex-col flex-1 p-6">
+            <div class="flex items-center justify-between mb-6 pt-2">
+                <h2 class="text-lg font-bold text-[#7d6960]">⚙️ ระบบจัดการร้านค้า (Admin)</h2>
+                <div class="flex items-center space-x-2">
+                    <button onclick="adminLogout()" 
+                            class="px-3 py-1.5 rounded-full bg-red-100 text-xs font-bold text-red-500 hover:bg-red-200 transition">
+                        ออกจากระบบ
+                    </button>
+                    <button onclick="switchView('customer')" 
+                            class="px-3 py-1.5 rounded-full bg-[#f0e4dc] text-xs font-bold text-[#7d6960] hover:bg-[#e8d8d0] transition">
+                        กลับหน้าเว็บหลัก
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-4 pb-12">
+                <!-- Preset Themes Section -->
+                <div class="bg-[#fcf9f7] p-4 rounded-2xl border border-[#f0e4dc] shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-[#7d6960]">🎨 ชุดสีสำเร็จรูป (Preset Themes)</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="applyPresetTheme('pink')" class="p-2.5 rounded-xl border border-[#f2d9d0] bg-[#fbebe8] text-xs font-bold text-[#8c6d62] hover:bg-[#f7deda] transition text-center">
+                            🌸 โทนชมพูพาสเทล
+                        </button>
+                        <button onclick="applyPresetTheme('latte')" class="p-2.5 rounded-xl border border-[#e8ded5] bg-[#f3ece4] text-xs font-bold text-[#7d6960] hover:bg-[#eadeD5] transition text-center">
+                            ☕ โทนลาเต้ครีม
+                        </button>
                     </div>
                 </div>
 
-                <div class="admin-section">
-                    <label>ข้อมูลร้านค้า</label>
-                    <input type="text" id="editShopName" class="form-input" placeholder="ชื่อร้าน" style="margin-bottom:6px;">
-                    <input type="text" id="editShopSub" class="form-input" placeholder="คำอธิบายใต้ร้าน" style="margin-bottom:6px;">
+                <!-- Custom Color Picker Section -->
+                <div class="bg-[#fcf9f7] p-4 rounded-2xl border border-[#f0e4dc] shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-[#7d6960]">🖌️ ปรับแต่งสีเว็บไซต์ทุกจุด</h3>
+                    
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div>
+                            <label class="block text-[10px] text-[#b39e94] mb-1">สีพื้นหลังเว็บ</label>
+                            <input type="color" id="picker-bg" value="#f3ece4" class="w-full h-8 rounded cursor-pointer border border-[#f0e4dc]">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-[#b39e94] mb-1">สีการ์ด/กล่อง</label>
+                            <input type="color" id="picker-card" value="#fcf9f7" class="w-full h-8 rounded cursor-pointer border border-[#f0e4dc]">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-[#b39e94] mb-1">สีตัวหนังสือหลัก</label>
+                            <input type="color" id="picker-title" value="#7d6960" class="w-full h-8 rounded cursor-pointer border border-[#f0e4dc]">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-[#b39e94] mb-1">สีตัวหนังสือรอง</label>
+                            <input type="color" id="picker-sub" value="#b39e94" class="w-full h-8 rounded cursor-pointer border border-[#f0e4dc]">
+                        </div>
+                    </div>
+                    <button onclick="applyCustomColors()" 
+                            class="w-full bg-[#7d6960] text-white rounded-lg py-2 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
+                        ใช้งานสีที่ปรับแต่ง
+                    </button>
                 </div>
 
-                <div class="admin-section">
-                    <label>เปลี่ยนรูปแบนเนอร์ (Cover)</label>
-                    <input type="file" id="editBannerFile" accept="image/*" class="form-input" style="padding:8px;">
+                <!-- Shop Profile Settings -->
+                <div class="bg-[#fcf9f7] p-4 rounded-2xl border border-[#f0e4dc] shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-[#7d6960]">ตั้งค่าข้อมูลร้าน</h3>
+                    
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ชื่อร้าน</label>
+                        <input type="text" id="admin-shop-name" value="ชื่อร้าน" 
+                               class="w-full bg-white border border-[#f0e4dc] rounded-lg py-2 px-3 text-xs text-[#7d6960] focus:outline-none focus:border-[#d6c4bc]">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ข้อความใต้ชื่อร้าน (Subtitle)</label>
+                        <input type="text" id="admin-shop-subtitle" value="thx for review" 
+                               class="w-full bg-white border border-[#f0e4dc] rounded-lg py-2 px-3 text-xs text-[#7d6960] focus:outline-none focus:border-[#d6c4bc]">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">อัปโหลดรูปโปรไฟล์ (จากเครื่อง)</label>
+                        <input type="file" id="admin-avatar-file" accept="image/*" class="w-full text-xs text-[#7d6960] file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ebdcd3] file:text-[#7d6960] hover:file:bg-[#d6c4bc] cursor-pointer bg-white border border-[#f0e4dc] rounded-lg p-1">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">อัปโหลดรูปปกแบนเนอร์ (จากเครื่อง)</label>
+                        <input type="file" id="admin-banner-file" accept="image/*" class="w-full text-xs text-[#7d6960] file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ebdcd3] file:text-[#7d6960] hover:file:bg-[#d6c4bc] cursor-pointer bg-white border border-[#f0e4dc] rounded-lg p-1">
+                    </div>
+
+                    <button onclick="saveShopSettings()" 
+                            class="w-full bg-[#7d6960] text-white rounded-lg py-2 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
+                        บันทึกการตั้งค่าร้าน
+                    </button>
                 </div>
 
-                <div class="admin-section">
-                    <label>เปลี่ยนรูปโปรไฟล์</label>
-                    <input type="file" id="editAvatarFile" accept="image/*" class="form-input" style="padding:8px;">
+                <!-- Background Music Manager -->
+                <div class="bg-[#fcf9f7] p-4 rounded-2xl border border-[#f0e4dc] shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-[#7d6960]">🎵 จัดการเพลงประกอบเว็บไซต์</h3>
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ลิงก์เพลง Audio (URL หรือ MP3)</label>
+                        <input type="text" id="admin-music-url" placeholder="เว้นว่างไว้หากใช้เสียงกล่องดนตรี Synth อัตโนมัติ" 
+                               class="w-full bg-white border border-[#f0e4dc] rounded-lg py-2 px-3 text-xs text-[#7d6960] focus:outline-none focus:border-[#d6c4bc]">
+                    </div>
+                    <button onclick="saveMusicSettings()" 
+                            class="w-full bg-[#7d6960] text-white rounded-lg py-2 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
+                        บันทึกเพลงประกอบ
+                    </button>
                 </div>
 
-                <div class="admin-section">
-                    <label>ลิงก์โซเชียลมีเดีย</label>
-                    <input type="text" id="editLineLink" class="form-input" placeholder="Line URL" style="margin-bottom:6px;">
-                    <input type="text" id="editIgLink" class="form-input" placeholder="Instagram URL" style="margin-bottom:6px;">
-                    <input type="text" id="editFbLink" class="form-input" placeholder="Facebook URL" style="margin-bottom:10px;">
+                <!-- Review Manager (Add & Full Edit Reviews) -->
+                <div class="bg-[#fcf9f7] p-4 rounded-2xl border border-[#f0e4dc] shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold text-[#7d6960]">⭐ จัดการ / เพิ่ม / แก้ไขรีวิว</h3>
+                        <button onclick="openNewReviewModal()" class="px-2.5 py-1 bg-[#7d6960] text-white rounded-lg text-[11px] font-bold">+ เพิ่มรีวิว</button>
+                    </div>
+                    
+                    <div id="admin-reviews-list" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                        <!-- Populated dynamically -->
+                    </div>
                 </div>
-
-                <div class="admin-section">
-                    <label>จัดการรีวิวทั้งหมด</label>
-                    <div id="adminReviewsList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;"></div>
-                </div>
-
-                <button class="submit-btn" id="saveAdminConfig" style="width:100%; margin-top:10px;">บันทึกการเปลี่ยนแปลงทั้งหมด</button>
-                <button class="submit-btn" id="logoutAdminBtn" style="width:100%; margin-top:8px; background:#e0e0e0; color:#555;">ออกจากระบบ</button>
             </div>
+        </div>
+
+        <!-- ==================== EDIT / ADD REVIEW MODAL (ADMIN) ==================== -->
+        <div id="review-edit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-xs opacity-0 pointer-events-none modal-fade p-4">
+            <div class="w-full max-w-[360px] bg-white rounded-[32px] p-6 shadow-[0_15px_40px_rgba(150,130,120,0.25)] border border-[#f5ede7] relative transform scale-95 transition-transform duration-300">
+                <button onclick="closeReviewEditModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f7efe9] text-[#9c8278] flex items-center justify-center hover:bg-[#ebdcd3] transition text-sm font-bold">✕</button>
+
+                <div class="text-center mb-4 pt-1">
+                    <h3 id="modal-review-title" class="text-base font-bold text-[#7d6960]">✏️ แก้ไขรีวิว</h3>
+                </div>
+
+                <input type="hidden" id="edit-review-id">
+
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ชื่อผู้รีวิว</label>
+                        <input type="text" id="edit-review-name" class="w-full bg-[#fffcf9] border border-[#f0e4dc] rounded-lg py-2 px-3 text-[#7d6960] focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">จำนวนดาว (1-5)</label>
+                        <select id="edit-review-rating" class="w-full bg-[#fffcf9] border border-[#f0e4dc] rounded-lg py-2 px-3 text-[#7d6960] focus:outline-none">
+                            <option value="5">⭐⭐⭐⭐⭐ (5 ดาว)</option>
+                            <option value="4">⭐⭐⭐⭐ (4 ดาว)</option>
+                            <option value="3">⭐⭐⭐ (3 ดาว)</option>
+                            <option value="2">⭐⭐ (2 ดาว)</option>
+                            <option value="1">⭐ (1 ดาว)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ข้อความรีวิว</label>
+                        <textarea id="edit-review-text" rows="3" class="w-full bg-[#fffcf9] border border-[#f0e4dc] rounded-lg py-2 px-3 text-[#7d6960] focus:outline-none resize-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">รูปภาพรีวิว (อัปโหลดจากเครื่อง)</label>
+                        <input type="file" id="edit-review-photo-file" accept="image/*" class="w-full text-xs text-[#7d6960] file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ebdcd3] file:text-[#7d6960] hover:file:bg-[#d6c4bc] cursor-pointer">
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="saveReviewEdits()" class="w-full bg-[#7d6960] text-white rounded-full py-2.5 text-xs font-bold shadow hover:bg-[#6c5a52] transition">
+                            บันทึกข้อมูลรีวิว
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/25 backdrop-blur-xs opacity-0 pointer-events-none modal-fade p-4">
+            <div class="w-full max-w-[360px] bg-white/95 backdrop-blur-md rounded-[32px] p-6 shadow-[0_15px_40px_rgba(150,130,120,0.25)] border border-[#f5ede7] relative transform scale-95 transition-transform duration-300">
+                <button onclick="toggleContactModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f7efe9] text-[#9c8278] flex items-center justify-center hover:bg-[#ebdcd3] transition text-sm font-bold">✕</button>
+
+                <div class="text-center mb-5 pt-1">
+                    <h3 class="text-base font-bold text-[#7d6960]" style="color: var(--theme-text-title, #7d6960);">ช่องทางการติดต่อร้าน</h3>
+                    <p class="text-[11px] text-[#b39e94] mt-0.5" style="color: var(--theme-text-sub, #b39e94);">ติดต่อสอบถามหรือสั่งซื้อสินค้าได้ที่นี่ค่ะ</p>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="https://line.me" target="_blank" rel="noopener noreferrer" 
+                       class="w-full bg-white border border-[#f0e4dc] rounded-full py-3.5 px-5 flex items-center justify-between shadow-[0_4px_12px_rgba(200,180,170,0.1)] hover:bg-[#fcf9f7] transition group">
+                        <span class="text-sm font-bold text-[#7d6960] tracking-wide" style="color: var(--theme-text-title, #7d6960);">Line Official</span>
+                        <div class="w-7 h-7 rounded-full bg-[#7bc494] flex items-center justify-center text-white shadow-sm">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.87 1.48 5.43 3.79 7.08-.15.84-.71 3.03-.82 3.49-.13.56.21 1.09.77.94 1.15-.31 3.86-1.34 5.32-2.31.62.09 1.26.14 1.94.14 5.52 0 10-4.03 10-9s-4.48-9-10-9zm-3.3 11.2h-1.5c-.28 0-.5-.22-.5-.5v-3.4c0-.28.22-.5.5-.5h1.5c.28 0 .5.22.5.5v3.4c0 .28-.22.5-.5.5zm3.6 0h-1.5c-.28 0-.5-.22-.5-.5v-3.4c0-.28.22-.5.5-.5h1.5c.28 0 .5.22.5.5v3.4c0 .28-.22.5-.5.5zm4.8 0h-1.5c-.28 0-.5-.22-.5-.5v-1.4h-1.5v1.4c0 .28-.22.5-.5.5h-1.5c-.28 0-.5-.22-.5-.5v-3.4c0-.28.22-.5.5-.5h3.5c.28 0 .5.22.5.5v3.4c0 .28-.22.5-.5.5z"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+                       class="w-full bg-white border border-[#f0e4dc] rounded-full py-3.5 px-5 flex items-center justify-between shadow-[0_4px_12px_rgba(200,180,170,0.1)] hover:bg-[#fcf9f7] transition group">
+                        <span class="text-sm font-bold text-[#7d6960] tracking-wide" style="color: var(--theme-text-title, #7d6960);">Instagram</span>
+                        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-[#f9edcf] via-[#e25c71] to-[#833ab4] flex items-center justify-center text-white shadow-sm">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" 
+                       class="w-full bg-white border border-[#f0e4dc] rounded-full py-3.5 px-5 flex items-center justify-between shadow-[0_4px_12px_rgba(200,180,170,0.1)] hover:bg-[#fcf9f7] transition group">
+                        <span class="text-sm font-bold text-[#7d6960] tracking-wide" style="color: var(--theme-text-title, #7d6960);">Facebook</span>
+                        <div class="w-7 h-7 rounded-full bg-[#4267B2] flex items-center justify-center text-white shadow-sm">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 text-center border-t border-[#f7f0eb] bg-white flex-shrink-0">
+            <div class="w-32 h-1 bg-[#e8ded5] rounded-full mx-auto"></div>
         </div>
     </div>
 
     <script>
-        // Data & State Management
-        let appData = JSON.parse(localStorage.getItem('cute_shop_data')) || {
-            shopName: "ชื่อร้าน",
-            shopSub: "thx for review",
-            bannerUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80",
-            avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-            lineUrl: "https://line.me",
-            igUrl: "https://instagram.com",
-            fbUrl: "https://facebook.com",
-            theme: "pink",
-            reviews: []
-        };
+        // Generate subtle falling hearts and stars directly over the card
+        function initParticles() {
+            const container = document.getElementById('particles-container');
+            const particleSymbols = ['💖', '✨', '🤍', '⭐', '🌸'];
+            const particleCount = 12;
 
-        let selectedRating = 0;
-        let tempPhotoBase64 = "";
+            for (let i = 0; i < particleCount; i++) {
+                const el = document.createElement('div');
+                el.className = 'particle';
+                el.innerText = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
+                
+                const leftPos = Math.random() * 100;
+                const duration = 8 + Math.random() * 6;
+                const delay = Math.random() * 8;
+                const size = 12 + Math.random() * 12;
 
-        // DOM Elements
-        const displayBanner = document.getElementById('displayBanner');
-        const displayAvatar = document.getElementById('displayAvatar');
-        const displayShopName = document.getElementById('displayShopName');
-        const displayShopSub = document.getElementById('displayShopSub');
-        const statReviewsCount = document.getElementById('statReviewsCount');
-        const statRatingVal = document.getElementById('statRatingVal');
-        const reviewsListContainer = document.getElementById('reviewsListContainer');
+                el.style.left = `${leftPos}%`;
+                el.style.fontSize = `${size}px`;
+                el.style.animationDuration = `${duration}s`;
+                el.style.animationDelay = `${delay}s`;
 
-        const inputName = document.getElementById('inputName');
-        const inputText = document.getElementById('inputText');
-        const inputPhotoFile = document.getElementById('inputPhotoFile');
-        const fileNameDisplay = document.getElementById('fileNameDisplay');
-        const starPicker = document.getElementById('starPicker');
-        const submitReviewBtn = document.getElementById('submitReviewBtn');
-
-        const catBtn = document.getElementById('catBtn');
-        const contactPopup = document.getElementById('contactPopup');
-        const linkLine = document.getElementById('linkLine');
-        const linkIg = document.getElementById('linkIg');
-        const linkFb = document.getElementById('linkFb');
-
-        const settingsBtn = document.getElementById('settingsBtn');
-        const adminModal = document.getElementById('adminModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const loginSection = document.getElementById('loginSection');
-        const dashboardSection = document.getElementById('dashboardSection');
-        const adminPassInput = document.getElementById('adminPassInput');
-        const rememberMeCheck = document.getElementById('rememberMeCheck');
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutAdminBtn = document.getElementById('logoutAdminBtn');
-
-        const editShopName = document.getElementById('editShopName');
-        const editShopSub = document.getElementById('editShopSub');
-        const editBannerFile = document.getElementById('editBannerFile');
-        const editAvatarFile = document.getElementById('editAvatarFile');
-        const editLineLink = document.getElementById('editLineLink');
-        const editIgLink = document.getElementById('editIgLink');
-        const editFbLink = document.getElementById('editFbLink');
-        const saveAdminConfig = document.getElementById('saveAdminConfig');
-        const adminReviewsList = document.getElementById('adminReviewsList');
-        const presetPink = document.getElementById('presetPink');
-        const presetCream = document.getElementById('presetCream');
-
-        const musicBtn = document.getElementById('musicBtn');
-
-        // Init App UI
-        function renderApp() {
-            displayBanner.src = appData.bannerUrl;
-            displayAvatar.src = appData.avatarUrl;
-            displayShopName.textContent = appData.shopName;
-            displayShopSub.textContent = appData.shopSub;
-
-            linkLine.href = appData.lineUrl;
-            linkIg.href = appData.igUrl;
-            linkFb.href = appData.fbUrl;
-
-            // Stats
-            const count = appData.reviews.length;
-            statReviewsCount.textContent = count;
-            if (count > 0) {
-                const totalRating = appData.reviews.reduce((sum, r) => sum + r.rating, 0);
-                statRatingVal.textContent = (totalRating / count).toFixed(1);
-            } else {
-                statRatingVal.textContent = "0.0";
-            }
-
-            // Render Reviews List
-            reviewsListContainer.innerHTML = "";
-            if (count === 0) {
-                reviewsListContainer.innerHTML = `<div style="text-align:center; color:var(--text-sub); font-size:13px; padding:20px;">ยังไม่มีรีวิว มาเป็นคนแรกกันเถอะ!</div>`;
-            } else {
-                appData.reviews.forEach((r, idx) => {
-                    const card = document.createElement('div');
-                    card.className = 'review-card';
-                    card.innerHTML = `
-                        <div class="review-header">
-                            <span class="review-author">${escapeHtml(r.name)}</span>
-                            <span class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
-                        </div>
-                        <div class="review-text">${escapeHtml(r.text)}</div>
-                        ${r.photo ? `<img src="${r.photo}" class="review-img">` : ''}
-                    `;
-                    reviewsListContainer.appendChild(card);
-                });
-            }
-
-            applyTheme(appData.theme);
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        }
-
-        function applyTheme(theme) {
-            const root = document.documentElement;
-            if (theme === 'cream') {
-                root.style.setProperty('--bg-gradient', 'linear-gradient(135deg, #f5ebe0 0%, #e3d5ca 50%, #d5bdaf 100%)');
-                root.style.setProperty('--text-main', '#5c4033');
-                root.style.setProperty('--text-sub', '#8c7365');
-                root.style.setProperty('--accent-color', '#b08968');
-                root.style.setProperty('--border-color', '#eedecc');
-            } else {
-                root.style.setProperty('--bg-gradient', 'linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f3e5f5 100%)');
-                root.style.setProperty('--text-main', '#886f6f');
-                root.style.setProperty('--text-sub', '#b09e9e');
-                root.style.setProperty('--accent-color', '#d4a5a5');
-                root.style.setProperty('--border-color', '#f0e6e6');
+                container.appendChild(el);
             }
         }
+        initParticles();
 
-        // Star Picker for Form
-        const stars = starPicker.querySelectorAll('span');
-        stars.forEach(s => {
-            s.addEventListener('click', () => {
-                selectedRating = parseInt(s.getAttribute('data-value'));
-                stars.forEach((st, idx) => {
-                    if (idx < selectedRating) st.classList.add('active');
-                    else st.classList.remove('active');
+        let currentRating = 5;
+        let uploadedPhotoUrl = null;
+
+        let reviewsData = [];
+        let customMusicUrl = '';
+
+        const starIcons = document.querySelectorAll('.star-icon');
+        starIcons.forEach(star => {
+            star.addEventListener('click', (e) => {
+                const val = parseInt(e.currentTarget.getAttribute('data-value'));
+                currentRating = val;
+                starIcons.forEach((s, idx) => {
+                    if (idx < val) {
+                        s.classList.remove('text-[#e0cfc5]');
+                        s.classList.add('text-[#e8b84d]');
+                    } else {
+                        s.classList.remove('text-[#e8b84d]');
+                        s.classList.add('text-[#e0cfc5]');
+                    }
                 });
             });
         });
 
-        // Photo Upload for Review
-        inputPhotoFile.addEventListener('change', (e) => {
+        const reviewPhotoInput = document.getElementById('review-photo-input');
+        reviewPhotoInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                fileNameDisplay.textContent = file.name;
                 const reader = new FileReader();
-                reader.onload = (event) => {
-                    tempPhotoBase64 = event.target.result;
+                reader.onload = function(event) {
+                    uploadedPhotoUrl = event.target.result;
+                    document.querySelector('label[for="review-photo-input"]').classList.add('bg-[#ebdcd3]', 'border-[#d6c4bc]');
                 };
                 reader.readAsDataURL(file);
-            } else {
-                fileNameDisplay.textContent = "ยังไม่ได้เลือกรูปภาพ";
-                tempPhotoBase64 = "";
             }
         });
 
-        // Submit Review
-        submitReviewBtn.addEventListener('click', () => {
-            const name = inputName.value.trim();
-            const text = inputText.value.trim();
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('cute_shop_theme');
+            if (savedTheme) {
+                try {
+                    const themeObj = JSON.parse(savedTheme);
+                    applyThemeColors(themeObj);
+                } catch(e) {}
+            }
 
-            if (!name) {
-                alert('กรุณากรอกชื่อของคุณ');
+            const savedMusic = localStorage.getItem('cute_shop_music_url');
+            if (savedMusic) {
+                customMusicUrl = savedMusic;
+                document.getElementById('admin-music-url').value = customMusicUrl;
+            }
+
+            const savedName = localStorage.getItem('cute_shop_name');
+            if (savedName) {
+                document.getElementById('display-shop-name').innerText = savedName;
+                document.getElementById('admin-shop-name').value = savedName;
+            }
+
+            const savedSubtitle = localStorage.getItem('cute_shop_subtitle');
+            if (savedSubtitle) {
+                document.getElementById('display-shop-subtitle').innerText = savedSubtitle;
+                document.getElementById('admin-shop-subtitle').value = savedSubtitle;
+            }
+
+            const savedAvatar = localStorage.getItem('cute_shop_avatar');
+            if (savedAvatar) {
+                document.getElementById('display-avatar').src = savedAvatar;
+            }
+
+            const savedBanner = localStorage.getItem('cute_shop_banner');
+            if (savedBanner) {
+                document.getElementById('display-banner').src = savedBanner;
+            }
+
+            const savedReviews = localStorage.getItem('cute_shop_reviews_data');
+            if (savedReviews) {
+                try {
+                    reviewsData = JSON.parse(savedReviews);
+                } catch(e) {}
+            }
+
+            renderReviews();
+        });
+
+        function applyPresetTheme(type) {
+            let theme = {};
+            if (type === 'pink') {
+                theme = {
+                    bg: '#fdf2f4',
+                    card: '#fff9fa',
+                    title: '#a86b7c',
+                    sub: '#c996a4',
+                    blur1: '#fce4e8',
+                    blur2: '#fbd8de',
+                    accent: '#d48398',
+                    scrollbar: '#f0c2cd'
+                };
+            } else if (type === 'latte') {
+                theme = {
+                    bg: '#f3ece4',
+                    card: '#fcf9f7',
+                    title: '#7d6960',
+                    sub: '#b39e94',
+                    blur1: '#eadcd3',
+                    blur2: '#ebd8cc',
+                    accent: '#8a756b',
+                    scrollbar: '#e2d4cb'
+                };
+            }
+            applyThemeColors(theme);
+            localStorage.setItem('cute_shop_theme', JSON.stringify(theme));
+        }
+
+        function applyThemeColors(t) {
+            document.documentElement.style.setProperty('--theme-bg', t.bg);
+            document.documentElement.style.setProperty('--theme-card-bg', t.card);
+            document.documentElement.style.setProperty('--theme-text-title', t.title);
+            document.documentElement.style.setProperty('--theme-text-sub', t.sub);
+            document.documentElement.style.setProperty('--theme-blur1', t.blur1);
+            document.documentElement.style.setProperty('--theme-blur2', t.blur2);
+            document.documentElement.style.setProperty('--theme-accent', t.accent);
+            document.documentElement.style.setProperty('--theme-scrollbar', t.scrollbar);
+
+            document.getElementById('page-body').style.backgroundColor = t.bg;
+            document.getElementById('bg-blur-1').style.backgroundColor = t.blur1;
+            document.getElementById('bg-blur-2').style.backgroundColor = t.blur2;
+
+            document.getElementById('picker-bg').value = t.bg;
+            document.getElementById('picker-card').value = t.card;
+            document.getElementById('picker-title').value = t.title;
+            document.getElementById('picker-sub').value = t.sub;
+        }
+
+        function applyCustomColors() {
+            const custom = {
+                bg: document.getElementById('picker-bg').value,
+                card: document.getElementById('picker-card').value,
+                title: document.getElementById('picker-title').value,
+                sub: document.getElementById('picker-sub').value,
+                blur1: document.getElementById('picker-bg').value,
+                blur2: document.getElementById('picker-card').value,
+                accent: document.getElementById('picker-title').value,
+                scrollbar: document.getElementById('picker-sub').value
+            };
+            applyThemeColors(custom);
+            localStorage.setItem('cute_shop_theme', JSON.stringify(custom));
+        }
+
+        function saveShopSettings() {
+            const name = document.getElementById('admin-shop-name').value.trim() || 'ชื่อร้าน';
+            const subtitle = document.getElementById('admin-shop-subtitle').value.trim() || 'thx for review';
+
+            document.getElementById('display-shop-name').innerText = name;
+            document.getElementById('display-shop-subtitle').innerText = subtitle;
+
+            localStorage.setItem('cute_shop_name', name);
+            localStorage.setItem('cute_shop_subtitle', subtitle);
+
+            const avatarFile = document.getElementById('admin-avatar-file').files[0];
+            if (avatarFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('display-avatar').src = e.target.result;
+                    localStorage.setItem('cute_shop_avatar', e.target.result);
+                };
+                reader.readAsDataURL(avatarFile);
+            }
+
+            const bannerFile = document.getElementById('admin-banner-file').files[0];
+            if (bannerFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('display-banner').src = e.target.result;
+                    localStorage.setItem('cute_shop_banner', e.target.result);
+                };
+                reader.readAsDataURL(bannerFile);
+            }
+
+            alert('บันทึกข้อมูลร้านค้าเรียบร้อยแล้วค่ะ 💕');
+        }
+
+        function saveMusicSettings() {
+            const url = document.getElementById('admin-music-url').value.trim();
+            customMusicUrl = url;
+            localStorage.setItem('cute_shop_music_url', url);
+            alert('บันทึกเพลงประกอบเรียบร้อยแล้วค่ะ');
+        }
+
+        function handleAdminAccess() {
+            const rememberedSession = localStorage.getItem('cute_shop_admin_logged');
+            if (rememberedSession === 'true') {
+                switchView('admin');
+            } else {
+                openAdminLogin();
+            }
+        }
+
+        function openAdminLogin() {
+            const modal = document.getElementById('admin-login-modal');
+            const modalContent = modal.querySelector('div > div');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeAdminLogin() {
+            const modal = document.getElementById('admin-login-modal');
+            const modalContent = modal.querySelector('div > div');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+        }
+
+        function verifyAdminPassword() {
+            const pwd = document.getElementById('admin-password-input').value;
+            const rememberMe = document.getElementById('remember-me-checkbox').checked;
+            const errorMsg = document.getElementById('login-error-msg');
+
+            if (pwd === '1234') {
+                errorMsg.classList.add('hidden');
+                document.getElementById('admin-password-input').value = '';
+                closeAdminLogin();
+
+                if (rememberMe) {
+                    localStorage.setItem('cute_shop_admin_logged', 'true');
+                } else {
+                    sessionStorage.setItem('cute_shop_admin_logged', 'true');
+                }
+
+                switchView('admin');
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('cute_shop_admin_logged');
+            sessionStorage.removeItem('cute_shop_admin_logged');
+            switchView('customer');
+        }
+
+        function switchView(viewType) {
+            const customerView = document.getElementById('customer-view');
+            const adminView = document.getElementById('admin-view');
+
+            if (viewType === 'admin') {
+                customerView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                adminView.classList.add('flex');
+                renderAdminReviews();
+            } else {
+                adminView.classList.add('hidden');
+                adminView.classList.remove('flex');
+                customerView.classList.remove('hidden');
+            }
+        }
+
+        function toggleContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const modalContent = modal.querySelector('div > div');
+            const isHidden = modal.classList.contains('opacity-0');
+
+            if (isHidden) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+            }
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = '';
+
+            if (reviewsData.length === 0) {
+                container.innerHTML = '<div class="text-xs text-[#b39e94] text-center py-6">ยังไม่มีความคิดเห็นในขณะนี้</div>';
+            }
+
+            let totalStarsSum = 0;
+            reviewsData.forEach(rev => {
+                totalStarsSum += Number(rev.rating) || 0;
+
+                let starsHtml = '';
+                for (let i = 0; i < 5; i++) {
+                    const colorClass = i < rev.rating ? 'text-[#e8b84d]' : 'text-[#e0cfc5]';
+                    starsHtml += `<svg class="w-3.5 h-3.5 fill-current ${colorClass}" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+                }
+
+                let photoHtml = '';
+                if (rev.photo) {
+                    photoHtml = `<div class="mt-2 rounded-xl overflow-hidden max-h-48 border border-[#f0e4dc]"><img src="${rev.photo}" class="w-full h-full object-cover"></div>`;
+                }
+
+                const firstLetter = rev.name.charAt(0);
+
+                const card = document.createElement('div');
+                card.className = 'bg-[#fcf9f7] rounded-2xl p-4 border border-[#f4ece6] shadow-sm transition hover:shadow-md';
+                card.style.backgroundColor = 'var(--theme-card-bg, #fcf9f7)';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-[#ebdcd3] flex items-center justify-center text-xs text-[#7d6960] font-bold">${firstLetter}</div>
+                            <div>
+                                <div class="text-xs font-bold text-[#7d6960]" style="color: var(--theme-text-title, #7d6960);">${rev.name}</div>
+                                <div class="text-[10px] text-[#b39e94]" style="color: var(--theme-text-sub, #b39e94);">${rev.time}</div>
+                            </div>
+                        </div>
+                        <div class="flex">${starsHtml}</div>
+                    </div>
+                    <p class="text-xs text-[#8a756b] leading-relaxed" style="color: var(--theme-text-title, #7d6960);">${rev.text}</p>
+                    ${photoHtml}
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('stat-review-count').innerText = reviewsData.length;
+            
+            const avgRating = reviewsData.length > 0 ? (totalStarsSum / reviewsData.length).toFixed(1) : '0.0';
+            document.getElementById('stat-rating-score').innerText = avgRating;
+
+            localStorage.setItem('cute_shop_reviews_data', JSON.stringify(reviewsData));
+        }
+
+        function renderAdminReviews() {
+            const listContainer = document.getElementById('admin-reviews-list');
+            listContainer.innerHTML = '';
+
+            if (reviewsData.length === 0) {
+                listContainer.innerHTML = '<div class="text-xs text-[#b39e94] text-center py-4">ยังไม่มีรีวิวในระบบ</div>';
                 return;
             }
-            if (selectedRating === 0) {
-                alert('กรุณาให้คะแนนดาว');
-                return;
-            }
+
+            reviewsData.forEach((rev) => {
+                const item = document.createElement('div');
+                item.className = 'bg-white p-3 rounded-xl border border-[#f0e4dc] flex items-center justify-between text-xs';
+                item.innerHTML = `
+                    <div class="truncate flex-1 pr-2">
+                        <span class="font-bold text-[#7d6960]">${rev.name} (${rev.rating}★):</span> 
+                        <span class="text-[#8a756b]">${rev.text}</span>
+                    </div>
+                    <div class="flex items-center space-x-1 flex-shrink-0">
+                        <button onclick="openEditReviewModal(${rev.id})" class="text-blue-500 hover:text-blue-700 font-bold px-2 py-1">แก้ไข</button>
+                        <button onclick="deleteReview(${rev.id})" class="text-red-400 hover:text-red-600 font-bold px-2 py-1">ลบ</button>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function openNewReviewModal() {
+            document.getElementById('modal-review-title').innerText = '✨ เพิ่มรีวิวใหม่';
+            document.getElementById('edit-review-id').value = '';
+            document.getElementById('edit-review-name').value = '';
+            document.getElementById('edit-review-rating').value = '5';
+            document.getElementById('edit-review-text').value = '';
+            document.getElementById('edit-review-photo-file').value = '';
+
+            const modal = document.getElementById('review-edit-modal');
+            const modalContent = modal.querySelector('div > div');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function openEditReviewModal(id) {
+            const rev = reviewsData.find(r => r.id === id);
+            if (!rev) return;
+
+            document.getElementById('modal-review-title').innerText = '✏️ แก้ไขรีวิว';
+            document.getElementById('edit-review-id').value = rev.id;
+            document.getElementById('edit-review-name').value = rev.name;
+            document.getElementById('edit-review-rating').value = rev.rating;
+            document.getElementById('edit-review-text').value = rev.text;
+            document.getElementById('edit-review-photo-file').value = '';
+
+            const modal = document.getElementById('review-edit-modal');
+            const modalContent = modal.querySelector('div > div');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeReviewEditModal() {
+            const modal = document.getElementById('review-edit-modal');
+            const modalContent = modal.querySelector('div > div');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+        }
+
+        function saveReviewEdits() {
+            const id = document.getElementById('edit-review-id').value;
+            const name = document.getElementById('edit-review-name').value.trim() || 'คุณลูกค้า';
+            const rating = parseInt(document.getElementById('edit-review-rating').value);
+            const text = document.getElementById('edit-review-text').value.trim();
+            const photoFileInput = document.getElementById('edit-review-photo-file');
+
             if (!text) {
                 alert('กรุณากรอกข้อความรีวิว');
+                return;
+            }
+
+            const processAndSave = (photoUrl) => {
+                if (id) {
+                    const rev = reviewsData.find(r => r.id == id);
+                    if (rev) {
+                        rev.name = name;
+                        rev.rating = rating;
+                        rev.text = text;
+                        if (photoUrl) rev.photo = photoUrl;
+                    }
+                } else {
+                    const newRev = {
+                        id: Date.now(),
+                        name: name,
+                        time: 'เมื่อสักครู่นี้',
+                        rating: rating,
+                        text: text,
+                        photo: photoUrl || null
+                    };
+                    reviewsData.unshift(newRev);
+                }
+
+                closeReviewEditModal();
+                renderReviews();
+                renderAdminReviews();
+            };
+
+            if (photoFileInput.files && photoFileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    processAndSave(e.target.result);
+                };
+                reader.readAsDataURL(photoFileInput.files[0]);
+            } else {
+                let existingPhoto = null;
+                if (id) {
+                    const rev = reviewsData.find(r => r.id == id);
+                    if (rev) existingPhoto = rev.photo;
+                }
+                processAndSave(existingPhoto);
+            }
+        }
+
+        function deleteReview(id) {
+            reviewsData = reviewsData.filter(r => r.id !== id);
+            renderReviews();
+            renderAdminReviews();
+        }
+
+        function submitReview() {
+            const nameInput = document.getElementById('reviewer-name');
+            const textInput = document.getElementById('review-text');
+
+            const name = nameInput.value.trim() || 'คุณลูกค้า';
+            const text = textInput.value.trim();
+
+            if (!text) {
+                textInput.classList.add('border-red-300');
+                setTimeout(() => textInput.classList.remove('border-red-300'), 1500);
                 return;
             }
 
             const newReview = {
                 id: Date.now(),
                 name: name,
-                rating: selectedRating,
+                time: 'เมื่อสักครู่นี้',
+                rating: currentRating,
                 text: text,
-                photo: tempPhotoBase64
+                photo: uploadedPhotoUrl
             };
 
-            appData.reviews.unshift(newReview);
-            localStorage.setItem('cute_shop_data', JSON.stringify(appData));
+            reviewsData.unshift(newReview);
+            renderReviews();
 
-            // Reset form
-            inputName.value = "";
-            inputText.value = "";
-            inputPhotoFile.value = "";
-            fileNameDisplay.textContent = "ยังไม่ได้เลือกรูปภาพ";
-            tempPhotoBase64 = "";
-            selectedRating = 0;
-            stars.forEach(st => st.classList.remove('active'));
-
-            renderApp();
-            alert('ส่งรีวิวสำเร็จ ขอบคุณค่ะ! 💕');
-        });
-
-        // Contact Popup Toggle
-        catBtn.addEventListener('click', () => {
-            contactPopup.classList.toggle('show');
-        });
-
-        window.addEventListener('click', (e) => {
-            if (!catBtn.contains(e.target) && !contactPopup.contains(e.target)) {
-                contactPopup.classList.remove('show');
-            }
-        });
-
-        // Admin Modal & Login
-        settingsBtn.addEventListener('click', () => {
-            adminModal.style.display = 'flex';
-            if (localStorage.getItem('admin_logged_in') === 'true') {
-                showAdminDashboard();
-            } else {
-                loginSection.style.display = 'block';
-                dashboardSection.style.display = 'none';
-            }
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            adminModal.style.display = 'none';
-        });
-
-        loginBtn.addEventListener('click', () => {
-            const pass = adminPassInput.value;
-            if (pass === '1234') {
-                if (rememberMeCheck.checked) {
-                    localStorage.setItem('admin_logged_in', 'true');
-                }
-                showAdminDashboard();
-            } else {
-                alert('รหัสผ่านไม่ถูกต้อง (ค่าเริ่มต้นคือ 1234)');
-            }
-        });
-
-        logoutAdminBtn.addEventListener('click', () => {
-            localStorage.removeItem('admin_logged_in');
-            loginSection.style.display = 'block';
-            dashboardSection.style.display = 'none';
-            adminPassInput.value = "";
-        });
-
-        function showAdminDashboard() {
-            loginSection.style.display = 'none';
-            dashboardSection.style.display = 'block';
-
-            editShopName.value = appData.shopName;
-            editShopSub.value = appData.shopSub;
-            editLineLink.value = appData.lineUrl;
-            editIgLink.value = appData.igUrl;
-            editFbLink.value = appData.fbUrl;
-
-            renderAdminReviews();
+            nameInput.value = '';
+            textInput.value = '';
+            uploadedPhotoUrl = null;
+            document.querySelector('label[for="review-photo-input"]').classList.remove('bg-[#ebdcd3]', 'border-[#d6c4bc]');
+            reviewPhotoInput.value = '';
         }
 
-        function renderAdminReviews() {
-            adminReviewsList.innerHTML = "";
-            if (appData.reviews.length === 0) {
-                adminReviewsList.innerHTML = `<div style="font-size:12px; color:#888; text-align:center;">ยังไม่มีรีวิวในระบบ</div>`;
-                return;
-            }
-
-            appData.reviews.forEach((r, idx) => {
-                const item = document.createElement('div');
-                item.className = 'admin-review-item';
-                item.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:bold;">
-                        <span>#${idx+1} - ${escapeHtml(r.name)} (${r.rating} ดาว)</span>
-                    </div>
-                    <div style="font-size:12px; color:#555;">${escapeHtml(r.text)}</div>
-                    <div class="btn-group">
-                        <button class="mini-btn btn-delete" onclick="deleteReview(${r.id})">ลบรีวิว</button>
-                    </div>
-                `;
-                adminReviewsList.appendChild(item);
-            });
-        }
-
-        window.deleteReview = function(id) {
-            if (confirm('คุณต้องการลบรีวิวนี้ใช่หรือไม่?')) {
-                appData.reviews = appData.reviews.filter(r => r.id !== id);
-                localStorage.setItem('cute_shop_data', JSON.stringify(appData));
-                renderApp();
-                renderAdminReviews();
-            }
-        };
-
-        presetPink.addEventListener('click', () => {
-            appData.theme = 'pink';
-            applyTheme('pink');
-        });
-
-        presetCream.addEventListener('click', () => {
-            appData.theme = 'cream';
-            applyTheme('cream');
-        });
-
-        // Save Admin Config with Local Images
-        saveAdminConfig.addEventListener('click', async () => {
-            appData.shopName = editShopName.value.trim() || "ชื่อร้าน";
-            appData.shopSub = editShopSub.value.trim() || "";
-            appData.lineUrl = editLineLink.value.trim() || "#";
-            appData.igUrl = editIgLink.value.trim() || "#";
-            appData.fbUrl = editFbLink.value.trim() || "#";
-
-            // Handle Banner File Upload
-            if (editBannerFile.files[0]) {
-                appData.bannerUrl = await fileToBase64(editBannerFile.files[0]);
-            }
-
-            // Handle Avatar File Upload
-            if (editAvatarFile.files[0]) {
-                appData.avatarUrl = await fileToBase64(editAvatarFile.files[0]);
-            }
-
-            localStorage.setItem('cute_shop_data', JSON.stringify(appData));
-            renderApp();
-            alert('บันทึกข้อมูลสำเร็จเรียบร้อยค่ะ! ✨');
-            adminModal.style.display = 'none';
-        });
-
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-                reader.readAsDataURL(file);
-            });
-        }
-
-        // Web Audio API Background Music
         let audioCtx = null;
-        let isPlayingMusic = false;
+        let isMusicPlaying = false;
         let musicInterval = null;
+        let htmlAudio = null;
 
-        musicBtn.addEventListener('click', () => {
-            if (!isPlayingMusic) {
-                startMusic();
-                musicBtn.textContent = "🔊";
-                isPlayingMusic = true;
+        function toggleBackgroundMusic() {
+            const btn = document.getElementById('music-toggle-btn');
+            
+            if (!isMusicPlaying) {
+                isMusicPlaying = true;
+                btn.classList.add('music-playing', 'bg-[#ebdcd3]', 'text-[#7d6960]');
+
+                if (customMusicUrl && customMusicUrl.startsWith('http')) {
+                    htmlAudio = new Audio(customMusicUrl);
+                    htmlAudio.loop = true;
+                    htmlAudio.play().catch(e => {
+                        console.log('Audio playback error:', e);
+                    });
+                } else {
+                    try {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        if (audioCtx.state === 'suspended') {
+                            audioCtx.resume();
+                        }
+                        playLullabyMelody();
+                    } catch(e) {
+                        console.log('Synth audio error:', e);
+                    }
+                }
             } else {
-                stopMusic();
-                musicBtn.textContent = "🎵";
-                isPlayingMusic = false;
+                isMusicPlaying = false;
+                if (musicInterval) clearInterval(musicInterval);
+                if (audioCtx) {
+                    audioCtx.close();
+                    audioCtx = null;
+                }
+                if (htmlAudio) {
+                    htmlAudio.pause();
+                    htmlAudio = null;
+                }
+                btn.classList.remove('music-playing', 'bg-[#ebdcd3]', 'text-[#7d6960]');
             }
-        });
+        }
 
-        function startMusic() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            // Cute lullaby sequence notes (C, E, G, A)
-            const notes = [261.63, 329.63, 392.00, 440.00, 523.25];
-            let index = 0;
+        function playLullabyMelody() {
+            const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
 
             musicInterval = setInterval(() => {
-                if (!isPlayingMusic) return;
-                playTone(notes[index % notes.length], 0.3);
-                index++;
-            }, 600);
+                if (!isMusicPlaying || !audioCtx) return;
+
+                const note = notes[Math.floor(Math.random() * notes.length)];
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+
+            }, 700);
         }
-
-        function stopMusic() {
-            if (musicInterval) {
-                clearInterval(musicInterval);
-                musicInterval = null;
-            }
-        }
-
-        function playTone(freq, duration) {
-            if (!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        // Falling Hearts & Stars Generator
-        const fallingContainer = document.getElementById('fallingContainer');
-        const symbols = ['💖', '✨', '⭐', '🌸', '🤍'];
-
-        function createFallingItem() {
-            const item = document.createElement('div');
-            item.className = 'falling-item';
-            item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            item.style.left = Math.random() * 100 + 'vw';
-            item.style.fontSize = (Math.random() * 12 + 14) + 'px';
-            
-            const duration = Math.random() * 6 + 6; // 6 to 12 seconds slow fall
-            item.style.animationDuration = duration + 's';
-            
-            fallingContainer.appendChild(item);
-
-            setTimeout(() => {
-                item.remove();
-            }, duration * 1000);
-        }
-
-        // Start falling immediately upon loading
-        setInterval(createFallingItem, 700);
-        for(let i=0; i<6; i++) {
-            setTimeout(createFallingItem, i * 200);
-        }
-
-        // Initial render on load
-        renderApp();
     </script>
 </body>
 </html>
