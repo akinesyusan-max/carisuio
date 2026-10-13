@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cute Shop Review & Admin Panel</title>
+    <title id="meta-site-title">Cute Shop Review & Admin Panel</title>
+    <!-- Social Preview Meta Tags (Open Graph) -->
+    <meta property="id" id="og-url-meta" content="">
+    <meta property="og:title" id="og-title-meta" content="Cute Shop Review">
+    <meta property="og:description" id="og-desc-meta" content="ขอบคุณสำหรับรีวิวและความประทับใจค่ะ">
+    <meta property="og:image" id="og-image-meta" content="https://placehold.co/600x250/fdf8f5/b59384?text=Cute+Shop+Banner">
+    <meta property="og:type" content="website">
+
     <!-- Tailwind CSS for modern responsive utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for cute rounded font style -->
@@ -64,7 +71,7 @@
             pointer-events: none;
             animation: fall linear infinite;
             z-index: 40;
-            color: var(--theme-text-sub, #b39e94); /* ดึงสีตามโทนเว็บอัตโนมัติ */
+            color: var(--theme-text-sub, #b39e94);
         }
     </style>
 </head>
@@ -330,12 +337,18 @@
                     </div>
 
                     <div>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">ข้อความพรีวิวตอนส่งลิงก์ (Share Description)</label>
+                        <input type="text" id="admin-share-desc" value="ขอบคุณสำหรับรีวิวและความประทับใจค่ะ" 
+                               class="w-full bg-white border border-[#f0e4dc] rounded-lg py-2 px-3 text-xs text-[#7d6960] focus:outline-none focus:border-[#d6c4bc]">
+                    </div>
+
+                    <div>
                         <label class="block text-[11px] text-[#b39e94] mb-1">อัปโหลดรูปโปรไฟล์ (จากเครื่อง)</label>
                         <input type="file" id="admin-avatar-file" accept="image/*" class="w-full text-xs text-[#7d6960] file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ebdcd3] file:text-[#7d6960] hover:file:bg-[#d6c4bc] cursor-pointer bg-white border border-[#f0e4dc] rounded-lg p-1">
                     </div>
 
                     <div>
-                        <label class="block text-[11px] text-[#b39e94] mb-1">อัปโหลดรูปปกแบนเนอร์ (จากเครื่อง)</label>
+                        <label class="block text-[11px] text-[#b39e94] mb-1">อัปโหลดรูปปกแบนเนอร์ (และรูปพรีวิวแชร์ลิงก์)</label>
                         <input type="file" id="admin-banner-file" accept="image/*" class="w-full text-xs text-[#7d6960] file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#ebdcd3] file:text-[#7d6960] hover:file:bg-[#d6c4bc] cursor-pointer bg-white border border-[#f0e4dc] rounded-lg p-1">
                     </div>
 
@@ -546,6 +559,8 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('og-url-meta').setAttribute('content', window.location.href);
+
             const savedTheme = localStorage.getItem('cute_shop_theme');
             if (savedTheme) {
                 try {
@@ -564,12 +579,20 @@
             if (savedName) {
                 document.getElementById('display-shop-name').innerText = savedName;
                 document.getElementById('admin-shop-name').value = savedName;
+                document.getElementById('meta-site-title').innerText = savedName + ' - Review';
+                document.getElementById('og-title-meta').setAttribute('content', savedName + ' - Review & Feedback');
             }
 
             const savedSubtitle = localStorage.getItem('cute_shop_subtitle');
             if (savedSubtitle) {
                 document.getElementById('display-shop-subtitle').innerText = savedSubtitle;
                 document.getElementById('admin-shop-subtitle').value = savedSubtitle;
+            }
+
+            const savedShareDesc = localStorage.getItem('cute_shop_share_desc');
+            if (savedShareDesc) {
+                document.getElementById('admin-share-desc').value = savedShareDesc;
+                document.getElementById('og-desc-meta').setAttribute('content', savedShareDesc);
             }
 
             const savedAvatar = localStorage.getItem('cute_shop_avatar');
@@ -580,6 +603,7 @@
             const savedBanner = localStorage.getItem('cute_shop_banner');
             if (savedBanner) {
                 document.getElementById('display-banner').src = savedBanner;
+                document.getElementById('og-image-meta').setAttribute('content', savedBanner);
             }
 
             const savedReviews = localStorage.getItem('cute_shop_reviews_data');
@@ -659,12 +683,17 @@
         function saveShopSettings() {
             const name = document.getElementById('admin-shop-name').value.trim() || 'ชื่อร้าน';
             const subtitle = document.getElementById('admin-shop-subtitle').value.trim() || 'thx for review';
+            const shareDesc = document.getElementById('admin-share-desc').value.trim() || 'ขอบคุณสำหรับรีวิวและความประทับใจค่ะ';
 
             document.getElementById('display-shop-name').innerText = name;
             document.getElementById('display-shop-subtitle').innerText = subtitle;
+            document.getElementById('meta-site-title').innerText = name + ' - Review';
+            document.getElementById('og-title-meta').setAttribute('content', name + ' - Review & Feedback');
+            document.getElementById('og-desc-meta').setAttribute('content', shareDesc);
 
             localStorage.setItem('cute_shop_name', name);
             localStorage.setItem('cute_shop_subtitle', subtitle);
+            localStorage.setItem('cute_shop_share_desc', shareDesc);
 
             const avatarFile = document.getElementById('admin-avatar-file').files[0];
             if (avatarFile) {
@@ -681,12 +710,13 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('display-banner').src = e.target.result;
+                    document.getElementById('og-image-meta').setAttribute('content', e.target.result);
                     localStorage.setItem('cute_shop_banner', e.target.result);
                 };
                 reader.readAsDataURL(bannerFile);
             }
 
-            alert('บันทึกข้อมูลร้านค้าเรียบร้อยแล้วค่ะ 💕');
+            alert('บันทึกข้อมูลร้านค้าและพรีวิวแชร์ลิงก์เรียบร้อยแล้วค่ะ 💕');
         }
 
         function saveMusicSettings() {
